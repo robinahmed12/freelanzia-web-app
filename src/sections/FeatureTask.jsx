@@ -12,8 +12,8 @@ const FeatureTask = () => {
   }, []);
 
   return (
-    <section className=" py-12  px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mt-12  mx-auto">
+    <section className=" py-12 mt-20  px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl  mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#333333] mb-3">
