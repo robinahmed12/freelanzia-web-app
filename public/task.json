@@ -1,0 +1,50 @@
+[
+  {
+    "taskTitle": "Build a Portfolio Website",
+    "category": "Web Development",
+    "description": "Need a responsive personal portfolio website using React. Should include about, projects, contact, and blog sections.",
+    "deadline": "2025-06-10",
+    "budget": 500,
+    "image": "https://cdn.dribbble.com/userupload/2773783/file/original-65b9d30177b8a712b61b8e1dc2d9353b.png?resize=1504x1128&vertical=center"
+  },
+  {
+    "taskTitle": "Logo Design for Startup",
+    "category": "Design",
+    "description": "Looking for a modern and minimalist logo design for a tech startup. Final files should include SVG, PNG, and editable source.",
+    "deadline": "2025-05-30",
+    "budget": 150,
+    "image": "https://cdn.dribbble.com/userupload/42725555/file/original-20aedac6bc4f06e645d014db07602d4a.png?format=webp&resize=640x480&vertical=center"
+  },
+  {
+    "taskTitle": "SEO Optimization for Blog",
+    "category": "Marketing",
+    "description": "Audit and optimize an existing WordPress blog for search engine visibility. Focus on keyword strategy and page speed.",
+    "deadline": "2025-06-05",
+    "budget": 300,
+    "image": "https://cdn.dribbble.com/userupload/14287902/file/original-c5b9e26a9e0da43d71e6eb9aac769f04.png?crop=0x0-1080x810&format=webp&resize=640x480&vertical=center"
+  },
+  {
+    "taskTitle": "Write 5 Tech Articles",
+    "category": "Writing",
+    "description": "Need five well-researched tech articles (800-1000 words each) on AI, blockchain, and cloud computing topics.",
+    "deadline": "2025-06-01",
+    "budget": 250,
+    "image": "https://whatfix.com/blog/wp-content/uploads/2021/10/Beige-Pastel-Modern-SWOT-Analysis-Infographic-Graph.png"
+  },
+  {
+    "taskTitle": "Create Social Media Ads",
+    "category": "Marketing",
+    "description": "Design and write copy for 3 Facebook and Instagram ads targeting small business owners for a SaaS product.",
+    "deadline": "2025-05-25",
+    "budget": 180,
+    "image": "https://cdn.dribbble.com/userupload/6146706/file/original-c1e74b2e16136df35bca20f69f78f777.png?resize=1504x1128&vertical=center"
+  },
+  {
+    "taskTitle": "Fix Bugs in Laravel Application",
+    "category": "Web Development",
+    "description": "Debug and fix known issues in a Laravel-based admin dashboard. Experience with MySQL and REST APIs required.",
+    "deadline": "2025-06-08",
+    "budget": 400,
+    "image": "https://cdn.dribbble.com/userupload/20251357/file/original-9be7c5d4a849993fc962acab8588d680.jpg?resize=752x564&vertical=center"
+  }
+]

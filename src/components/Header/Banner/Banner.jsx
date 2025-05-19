@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
@@ -8,49 +8,66 @@ const slides = [
   {
     title: "Find Freelancers Instantly",
     subtitle: "Post a task and get instant offers",
-    image: "https://img.freepik.com/premium-photo/deadline-technology-people-concept-happy-creative-man-with-tablet-pc-computer-working-night-office_380164-205349.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    image:
+      "https://img.freepik.com/premium-photo/deadline-technology-people-concept-happy-creative-man-with-tablet-pc-computer-working-night-office_380164-205349.jpg",
   },
   {
     title: "Work Anywhere, Anytime",
     subtitle: "Flexible freelance opportunities",
-    image: "https://img.freepik.com/free-photo/young-male-designer-using-graphics-tablet-while-working-with-com_158595-1129.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    image:
+      "https://img.freepik.com/free-photo/young-male-designer-using-graphics-tablet-while-working-with-com_158595-1129.jpg",
   },
   {
     title: "Secure Task Payments",
     subtitle: "Payments held until work is done",
-    image: "https://img.freepik.com/free-photo/handsome-young-latin-editor-retouching-photo-while-making-eye-contact_662251-1052.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    image:
+      "https://img.freepik.com/free-photo/handsome-young-latin-editor-retouching-photo-while-making-eye-contact_662251-1052.jpg",
   },
   {
     title: "Browse Talent by Skill",
     subtitle: "Match with the right freelancer",
-    image: "https://img.freepik.com/free-photo/brunette-boy-listening-music-earphones-working-outdoors_651396-3004.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    image:
+      "https://img.freepik.com/free-photo/brunette-boy-listening-music-earphones-working-outdoors_651396-3004.jpg",
   },
   {
     title: "Grow Your Freelance Career",
     subtitle: "Join, work, earn, repeat",
-    image: "https://img.freepik.com/free-photo/bearded-freelancer-working-laptop-living-room-girlfriend-relaxing-sofa-background-using-her-phone-chips_482257-31206.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    image:
+      "https://img.freepik.com/free-photo/bearded-freelancer-working-laptop-living-room-girlfriend-relaxing-sofa-background-using-her-phone-chips_482257-31206.jpg",
   },
 ];
 
 const Banner = () => {
-  const [sliderRef] = useKeenSlider({
+  const timerRef = useRef(null);
+
+  const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     renderMode: "performance",
     drag: false,
+    slides: { perView: 1 },
     created(s) {
-      s.moveToIdx(1, true, animation);
-    },
-    updated(s) {
-      s.moveToIdx(s.track.details.abs + 1, true, animation);
+      autoSlide(s);
     },
     animationEnded(s) {
-      s.moveToIdx(s.track.details.abs + 1, true, animation);
+      autoSlide(s);
     },
-    slides: { perView: 1 },
   });
 
+  const autoSlide = (slider) => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      slider.moveToIdx(slider.track.details.abs + 1, true, animation);
+    }, 8000); // match animation duration
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerRef.current); // Clean up on unmount
+    };
+  }, []);
+
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full mt-10 overflow-hidden">
       <div ref={sliderRef} className="keen-slider">
         {slides.map((slide, index) => (
           <div
@@ -78,14 +95,17 @@ const Banner = () => {
           </div>
         ))}
       </div>
-      
-      {/* Custom dots indicator */}
+
+      {/* Custom dots */}
       <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
         {slides.map((_, idx) => (
           <button
             key={idx}
-            className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-colors duration-300"
-            onClick={() => sliderRef.current?.moveToIdx(idx)}
+            className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 hover:bg-orange-500 transition-colors duration-300"
+            onClick={() => {
+              instanceRef.current?.moveToIdx(idx);
+              clearTimeout(timerRef.current);
+            }}
             aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
@@ -95,3 +115,4 @@ const Banner = () => {
 };
 
 export default Banner;
+
