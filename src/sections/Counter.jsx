@@ -9,29 +9,42 @@ const stats = [
   { label: "Countries", value: 85 },
 ];
 
-const CounterSection = () => {
+const Counter = () => {
   const { ref, inView } = useInView({
-    triggerOnce: false, // Only trigger once
-    threshold: 0.3, // Trigger when 30% of the section is visible
+    triggerOnce: false,
+    threshold: 0.3,
   });
 
   return (
-    <section ref={ref} className="bg-white mt-20 py-16 px-4">
-      <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-10">
-          Trusted by Thousands Worldwide
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <section
+      ref={ref}
+      className="bg-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+            Trusted by Thousands Worldwide
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 md:gap-10">
           {stats.map((stat, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <h3 className="text-4xl font-bold text-[#FF6F00]">
+            <div
+              key={index}
+              className="flex flex-col items-center p-4 sm:p-5 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-600 mb-2 sm:mb-3">
                 {inView ? (
-                  <CountUp end={stat.value} duration={2} separator="," />
+                  <CountUp end={stat.value} duration={2.5} separator="," />
                 ) : (
                   0
                 )}
+                {index === stats.length - 1 && "+"}{" "}
+                {/* Add plus sign for countries */}
               </h3>
-              <p className="text-[#333333] text-lg mt-2">{stat.label}</p>
+              <p className="text-gray-900 text-base sm:text-lg md:text-xl font-medium">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
@@ -40,4 +53,4 @@ const CounterSection = () => {
   );
 };
 
-export default CounterSection;
+export default Counter;

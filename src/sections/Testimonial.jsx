@@ -49,54 +49,90 @@ const testimonials = [
 
 export default function TestimonialSlider() {
   const [sliderRef, instanceRef] = useKeenSlider({
-    slidesPerView: 3,
-    spacing: 20,
+    breakpoints: {
+      "(min-width: 1024px)": {
+        slides: { perView: 3, spacing: 20 },
+      },
+      "(min-width: 768px)": {
+        slides: { perView: 2, spacing: 15 },
+      },
+    },
+    slides: { perView: 1, spacing: 10 },
     loop: true,
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-6 mt-20 py-12 bg-white">
-      <h2 className="text-3xl font-bold text-[#FF6F00] mb-8 text-center">
-        What Our Freelancers Say
-      </h2>
-      <div className="relative">
-        {/* Slider */}
-        <div ref={sliderRef} className="keen-slider">
-          {testimonials.map(({ id, name, role, img, text }) => (
-            <div
-              key={id}
-              className="keen-slider__slide bg-[#FFFFFF] border border-gray-200 rounded-lg shadow-md p-6 flex flex-col items-center text-center"
-            >
-              <img
-                src={img}
-                alt={name}
-                className="w-20 h-20 rounded-full mb-4 object-cover border-4 border-[#FF6F00]"
-              />
-              <p className="text-[#333333] mb-4 italic">"{text}"</p>
-              <h3 className="text-[#333333] font-semibold">{name}</h3>
-              <p className="text-[#666666] text-sm">{role}</p>
-            </div>
-          ))}
-        </div>
+    <div className="w-full bg-white px-4 py-12 md:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <h2 className="mb-8 text-center text-2xl font-bold text-[#333333] md:text-3xl">
+          What Our Freelancers Say
+        </h2>
+        <div className="relative">
+          {/* Slider */}
+          <div ref={sliderRef} className="keen-slider">
+            {testimonials.map(({ id, name, role, img, text }) => (
+              <div
+                key={id}
+                className="keen-slider__slide flex flex-col items-center rounded-lg border border-gray-200 bg-white p-6 text-center shadow-md"
+              >
+                <img
+                  src={img}
+                  alt={name}
+                  className="mb-4 h-16 w-16 rounded-full border-4 border-[#FF6F00] object-cover sm:h-20 sm:w-20"
+                />
+                <p className="mb-4 text-[#333333] italic">"{text}"</p>
+                <h3 className="font-semibold text-[#333333]">{name}</h3>
+                <p className="text-sm text-[#666666]">{role}</p>
+              </div>
+            ))}
+          </div>
 
-        {/* Arrows */}
-        <ArrowLeft onClick={() => instanceRef.current?.prev()} />
-        <ArrowRight onClick={() => instanceRef.current?.next()} />
+          {/* Navigation Arrows - Hidden on mobile, visible on tablets and up */}
+          <ArrowLeft
+            onClick={(e) => {
+              e.stopPropagation();
+              instanceRef.current?.prev();
+            }}
+            className="hidden md:block"
+          />
+          <ArrowRight
+            onClick={(e) => {
+              e.stopPropagation();
+              instanceRef.current?.next();
+            }}
+            className="hidden md:block"
+          />
+
+          {/* Dots Navigation - Visible only on mobile */}
+          <div className="mt-6 flex justify-center md:hidden">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => instanceRef.current?.moveToIdx(idx)}
+                className={`mx-1 h-2 w-2 rounded-full ${
+                  idx === (instanceRef.current?.track.details.rel || 0)
+                    ? "bg-[#FF6F00]"
+                    : "bg-gray-300"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function ArrowLeft(props) {
+function ArrowLeft({ onClick, className = "" }) {
   return (
     <button
-      {...props}
-      className="absolute top-1/2 left-0 -translate-y-1/2 bg-[#FF6F00] text-white p-2 rounded-full shadow hover:bg-orange-700 transition"
+      onClick={onClick}
+      className={`absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-[#FF6F00] p-2 text-white shadow transition hover:bg-orange-700 ${className}`}
       aria-label="Previous"
-      style={{ zIndex: 10 }}
     >
       <svg
-        className="w-5 h-5"
+        className="h-5 w-5"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -112,16 +148,15 @@ function ArrowLeft(props) {
   );
 }
 
-function ArrowRight(props) {
+function ArrowRight({ onClick, className = "" }) {
   return (
     <button
-      {...props}
-      className="absolute top-1/2 right-0 -translate-y-1/2 bg-[#FF6F00] text-white p-2 rounded-full shadow hover:bg-orange-700 transition"
+      onClick={onClick}
+      className={`absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-[#FF6F00] p-2 text-white shadow transition hover:bg-orange-700 ${className}`}
       aria-label="Next"
-      style={{ zIndex: 10 }}
     >
       <svg
-        className="w-5 h-5"
+        className="h-5 w-5"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
