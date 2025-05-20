@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../../context/AuthContext";
+import { Bounce, toast } from "react-toastify";
 
 const StyledWrapper = styled.div`
   .btn {
@@ -60,18 +62,36 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const Button = () => {
+const Button2 = () => {
+  const { logOutUser } = useContext(AuthContext);
+   const handleLogOut = () => {
+    logOutUser()
+      .then(() => {
+        toast.success("🦄 Log out successfully", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
-    <StyledWrapper>
-      {" "}
-      {
-        <Link to={"/login"} className="btn">
-          {" "}
-          Log in
-        </Link>
-      }
-    </StyledWrapper>
+    <div>
+      <StyledWrapper>
+        {" "}
+        <button onClick={handleLogOut} className="btn"> Log out</button>
+      </StyledWrapper>
+    </div>
   );
 };
 
-export default Button;
+export default Button2;

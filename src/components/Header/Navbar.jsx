@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../Button/Button";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import Button2 from "../Button/Button2";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useContext(AuthContext);
+  console.log(user);
+  
+console.log(user);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+ 
   return (
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-3">
@@ -82,7 +89,9 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="ml-8">
-              <Button />
+            {
+              user ? <Button2></Button2>: <Button/>
+            }
             </div>
           </nav>
 
@@ -103,7 +112,11 @@ const Navbar = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                d={
+                  isMenuOpen
+                    ? "M6 18L18 6M6 6l12 12"
+                    : "M4 6h16M4 12h16M4 18h16"
+                }
               />
             </svg>
           </button>
@@ -174,9 +187,10 @@ const Navbar = () => {
                 </NavLink>
               </li>
             </ul>
-            <div className="mt-4">
+
+            <Link to={"/register"} className="mt-4">
               <Button className="w-full" />
-            </div>
+            </Link>
           </nav>
         )}
       </div>

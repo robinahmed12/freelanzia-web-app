@@ -9,7 +9,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-base-200 text-charcoal mt-20">
+    <footer className="bg-base-200 text-charcoal mt-28">
       {/* Main Footer Content */}
       <div className=" mx-4 px-4 py-8">
         <div className="flex flex-col lg:flex-row flex-wrap  justify-between border-b border-gray-200 pb-8 mb-8 gap-8">
@@ -177,14 +177,14 @@ export default function Footer() {
           </div>
 
           <div>
-            <ul className="flex flex-col gap-7 justify-center items-center">
+            <ul className="flex flex-col text-lg font-semibold gap-7  lg:justify-center items-start">
               <li>
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    `  rounded-md text-sm font-medium transition-colors ${
                       isActive
-                        ? "text-white bg-orange-600"
+                        ? "text-gray-800 "
                         : "text-gray-800 hover:text-orange-600 hover:bg-orange-50"
                     }`
                   }
@@ -196,7 +196,7 @@ export default function Footer() {
                 <NavLink
                   to="/add-tasks"
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    ` rounded-md text-sm font-medium transition-colors ${
                       isActive
                         ? "text-white bg-orange-600"
                         : "text-gray-800 hover:text-orange-600 hover:bg-orange-50"
@@ -210,7 +210,7 @@ export default function Footer() {
                 <NavLink
                   to="/browse-tasks"
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    ` rounded-md text-sm font-medium transition-colors ${
                       isActive
                         ? "text-white bg-orange-600"
                         : "text-gray-800 hover:text-orange-600 hover:bg-orange-50"
@@ -224,7 +224,7 @@ export default function Footer() {
                 <NavLink
                   to="/my-posted-tasks"
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    ` rounded-md text-sm font-medium transition-colors ${
                       isActive
                         ? "text-white bg-orange-600"
                         : "text-gray-800 hover:text-orange-600 hover:bg-orange-50"
