@@ -193,7 +193,8 @@ const StyledWrapper = styled.div`
 `;
 
 const Register = () => {
-  const { createUser, setUser, signInWithGoogle } = useContext(AuthContext);
+  const { createUser, setUser, signInWithGoogle,   updateUserProfile } =
+    useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -201,7 +202,7 @@ const Register = () => {
     const formData = new FormData(form);
 
     const user = Object.fromEntries(formData.entries());
-    const { email, password } = user;
+    const { email, password, name, photo } = user;
 
     const RegExpLower = /[a-z]/;
     const RegExpUpper = /[A-Z]/;
@@ -248,22 +249,25 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         console.log(result);
-        if (result.user) {
-          toast.success("🦄 Registration successful", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          });
-        }
 
         const user = result.user;
-        setUser(user);
+
+          updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
+          setUser({ ...user, displayName: name, photoURL: photo });
+          if (result.user) {
+            toast.success("🦄 Registration successful", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
+          }
+        });
       })
       .catch((error) => {
         console.log(error);

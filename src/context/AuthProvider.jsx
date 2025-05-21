@@ -1,63 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword,  onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
-import { auth } from '../firebase/firebase.init';
-import { GoogleAuthProvider } from 'firebase/auth';
+import React, { useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../firebase/firebase.init";
+import { GoogleAuthProvider } from "firebase/auth";
 
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState([]);
 
+  const createUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
-const AuthProvider = ({children}) => {
+  const loginUser = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-    const [user , setUser] = useState([])
-   
-    
+  const logOutUser = () => {
+    return signOut(auth), setUser(null);
+  };
 
-    const createUser = (email , password)=> {
-
-        return createUserWithEmailAndPassword(auth , email , password )
-    }
-
-    const loginUser= (email , password) => {
-
-        return signInWithEmailAndPassword(auth , email , password)
-    }
-
-    const logOutUser = () => {
-        return signOut(auth),
-        setUser(null)
-    }
-
-      useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log('Auth state changed:', currentUser);
+      console.log("Auth state changed:", currentUser);
       setUser(currentUser);
     });
 
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle =()=> {
+  const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-  
-     return signInWithPopup(auth , provider)
-  }
 
+    return signInWithPopup(auth, provider);
+  };
 
-    const userInfo = {
-        createUser,
-        loginUser,
-        user,
-        setUser,
-        logOutUser,
-        signInWithGoogle
-    }
-    return (
-       <>
-       <AuthContext value={userInfo}>
-        {children}
-       </AuthContext>
-       </>
-    );
+  const updateUserProfile = (updatedData) => {
+    setUser({ ...auth.currentUser, ...updatedData });
+    return updateProfile(auth.currentUser, updatedData);
+  };
+
+  const userInfo = {
+    createUser,
+    loginUser,
+    user,
+    setUser,
+    logOutUser,
+    signInWithGoogle,
+    updateUserProfile,
+  };
+  return (
+    <>
+      <AuthContext value={userInfo}>{children}</AuthContext>
+    </>
+  );
 };
 
 export default AuthProvider;
