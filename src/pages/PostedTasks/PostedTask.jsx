@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {  } from "react";
+
 
 const PostedTask = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+
+
+  return <>
+
+  </>
 };
 
 export default PostedTask;

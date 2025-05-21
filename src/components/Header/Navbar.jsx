@@ -12,9 +12,7 @@ const Navbar = () => {
   };
 
   const { user } = useContext(AuthContext);
-  console.log(user);
-
-  console.log(user);
+  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

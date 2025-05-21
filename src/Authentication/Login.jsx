@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { toast, Bounce } from "react-toastify";
 
 const Login = () => {
-  const { loginUser, signInWithGoogle } = useContext(AuthContext);
+  const { loginUser, signInWithGoogle , setUser } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -58,7 +58,9 @@ const Login = () => {
           theme: "light",
           transition: Bounce,
         });
-        console.log(result);
+        const user = result.user
+        setUser(user)
+        
       })
       .catch((error) => {
         toast.error(error.message, {

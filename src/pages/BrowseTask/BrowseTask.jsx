@@ -4,8 +4,7 @@ import BrowseCard from "./BrowseCard";
 
 const BrowseTask = () => {
   const data = useLoaderData();
-  console.log(data);
-  
+
   // Handle loading/error states
   if (!data) {
     return <div>Loading tasks...</div>;

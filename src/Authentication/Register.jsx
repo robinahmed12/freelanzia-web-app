@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
 import { Bounce, toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
 
 const StyledWrapper = styled.div`
   .form {
@@ -193,7 +194,7 @@ const StyledWrapper = styled.div`
 `;
 
 const Register = () => {
-  const { createUser, setUser, signInWithGoogle,   updateUserProfile } =
+  const { createUser, setUser, signInWithGoogle, updateUserProfile } =
     useContext(AuthContext);
 
   const handleRegister = (e) => {
@@ -204,55 +205,48 @@ const Register = () => {
     const user = Object.fromEntries(formData.entries());
     const { email, password, name, photo } = user;
 
+    const userData = {
+      name,
+      email,
+      photo,
+      createdAt: new Date(),
+    };
+
     const RegExpLower = /[a-z]/;
     const RegExpUpper = /[A-Z]/;
     const RegExpLength = /^.{6,}$/;
 
     if (!RegExpLower.test(password)) {
-      toast.error("Must have an Lower letter in the password", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-    } else if (!RegExpUpper.test(password)) {
-      toast.error("Must have an uppercase letter in the password", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-    } else if (!RegExpLength.test(password)) {
-      toast.error("Password must be at least 6 characters long", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      toast.error("Must have a lowercase letter in the password");
+      return;
+    }
+    if (!RegExpUpper.test(password)) {
+      toast.error("Must have an uppercase letter in the password");
+      return;
+    }
+    if (!RegExpLength.test(password)) {
+      toast.error("Password must be at least 6 characters long");
+      return;
     }
 
     createUser(email, password)
       .then((result) => {
-        console.log(result);
-
         const user = result.user;
 
-          updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        })
+          .then((res) => res.json()) // ✅ Parse JSON
+          .then((data) => {
+            console.log(data);
+            
+          });
+
+        updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
           setUser({ ...user, displayName: name, photoURL: photo });
           if (result.user) {
             toast.success("🦄 Registration successful", {

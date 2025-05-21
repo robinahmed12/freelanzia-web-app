@@ -46,7 +46,7 @@ const AddTask = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://freelanzia-server.vercel.app/tasks", {
+    fetch("http://localhost:3000/tasks", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -64,7 +64,6 @@ const AddTask = () => {
       }
     });
 
-    console.log("Form submitted:", formData);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
     setFormData({
