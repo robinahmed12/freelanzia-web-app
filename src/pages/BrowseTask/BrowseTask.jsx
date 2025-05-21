@@ -5,6 +5,14 @@ import BrowseCard from "./BrowseCard";
 const BrowseTask = () => {
   const data = useLoaderData();
   console.log(data);
+  
+  // Handle loading/error states
+  if (!data) {
+    return <div>Loading tasks...</div>;
+  }
+
+  // Ensure data is always treated as an array
+  const tasks = Array.isArray(data) ? data : [];
 
   return (
     <>
@@ -22,9 +30,8 @@ const BrowseTask = () => {
 
           {/* Tasks Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-            {data.map((task) => (
-              <BrowseCard key={task._id} task={task}></BrowseCard>
-            ))}
+            {Array.isArray(data) &&
+              tasks.map((task) => <BrowseCard key={task._id} task={task} />)}
           </div>
         </div>
       </div>

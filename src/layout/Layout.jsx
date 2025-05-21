@@ -13,7 +13,7 @@ const Layout = () => {
         </nav>
       </header>
 
-      <main>
+      <main className="min-h-[calc(100vh-571px)]">
         <Outlet />
 
         <ToastContainer

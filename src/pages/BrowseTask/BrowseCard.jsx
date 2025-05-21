@@ -2,7 +2,17 @@ import React from "react";
 import { Link } from "react-router";
 
 const BrowseCard = ({ task }) => {
-  const { category, title, deadline, budget , _id } = task;
+  const { category, title, deadline , budget , _id } = task;
+   const formatDeadline = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    return new Date(dateString).toLocaleDateString("en-US", options);
+  };
   return (
     <>
       <div
@@ -18,11 +28,11 @@ const BrowseCard = ({ task }) => {
             </div>
             <div>
               <p className="text-sm text-[#666]">Deadline</p>
-              <p className="font-medium text-[#333333]">{deadline}</p>
+              <p className="font-medium text-[#333333]">{formatDeadline( deadline)}</p>
             </div>
             <div>
               <p className="text-sm text-[#666]">Budget</p>
-              <p className="font-medium text-[#FF6F00]">{budget}</p>
+              <p className="font-medium text-[#FF6F00]">$ {budget}</p>
             </div>
           </div>
         </div>

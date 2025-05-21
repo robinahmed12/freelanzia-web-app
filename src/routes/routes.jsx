@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/browse-tasks",
-        loader: ()=> fetch('http://localhost:3000/tasks'),
+        loader: ()=> fetch('https://freelanzia-server.vercel.app/tasks'),
         element: (
           <PrivateRoute>
             <BrowseTask />
@@ -56,7 +56,7 @@ export const router = createBrowserRouter([
 
       {
         path: '/details/:id',
-        loader: ({params}) => fetch(`http://localhost:3000/tasks/${params.id}`),
+        loader: ({params}) => fetch(`https://freelanzia-server.vercel.app/tasks/${params.id}`),
         element: <TaskDetails/>
       }
     ],
