@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Button2 from "../Button/Button2";
 import Toggle from "../Button/Toggle";
+import log from "../../assets/logo.png"
 
 
 
@@ -23,7 +24,7 @@ const Navbar = () => {
  
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="mt-5">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -31,7 +32,7 @@ const Navbar = () => {
             to="/"
             className="flex items-center p-2 text-2xl font-bold text-gray-800 hover:text-orange-600 transition-colors"
           >
-            Freelanzia
+           <img className="w-[300px] mt-5" src={log} alt="" srcset="" />
           </NavLink>
 
           {/* Desktop Navigation */}

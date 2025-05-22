@@ -8,7 +8,7 @@ import RouteLoader from "../components/RouteLoader";
 const Layout = () => {
   return (
     <>
-      <header>
+      <header className="">
         <nav className="max-w-7xl mx-auto">
           <Navbar />
         </nav>

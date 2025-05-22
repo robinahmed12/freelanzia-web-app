@@ -1,118 +1,105 @@
-import React, { useRef, useEffect } from "react";
-import { useKeenSlider } from "keen-slider/react";
+import React from "react";
 import "keen-slider/keen-slider.min.css";
-
-const animation = { duration: 8000, easing: (t) => t };
+import { useTypewriter, Cursor } from "react-simple-typewriter";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const slides = [
   {
-    title: "Find Freelancers Instantly",
-    subtitle: "Post a task and get instant offers",
     image:
-      "https://img.freepik.com/premium-photo/deadline-technology-people-concept-happy-creative-man-with-tablet-pc-computer-working-night-office_380164-205349.jpg",
+      "https://img.freepik.com/free-photo/young-smiling-man-working-with-laptop-office_1268-21465.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    titles: [
+      "Hire Top Freelancers",
+      "Get Work Done Fast",
+      "Scale Your Team On Demand",
+    ],
+    subtitle: "Connect with skilled professionals across the globe.",
   },
   {
-    title: "Work Anywhere, Anytime",
-    subtitle: "Flexible freelance opportunities",
     image:
-      "https://img.freepik.com/free-photo/young-male-designer-using-graphics-tablet-while-working-with-com_158595-1129.jpg",
+      "https://img.freepik.com/free-photo/male-sitting-cafe-with-laptop_23-2147826928.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    titles: ["Build Your Dream Team", "Freelance. Fast.", "Reliable Talent"],
+    subtitle: "Discover expert freelancers for every project.",
   },
   {
-    title: "Secure Task Payments",
-    subtitle: "Payments held until work is done",
     image:
-      "https://img.freepik.com/free-photo/handsome-young-latin-editor-retouching-photo-while-making-eye-contact_662251-1052.jpg",
+      "https://img.freepik.com/free-photo/girl-student-with-laptop-standing-by-window-corridor_1303-20641.jpg",
+    titles: [
+      "Post Projects Instantly",
+      "Find Work Quickly",
+      "Grow Your Career",
+    ],
+    subtitle: "Join a thriving freelance community.",
   },
   {
-    title: "Browse Talent by Skill",
-    subtitle: "Match with the right freelancer",
     image:
-      "https://img.freepik.com/free-photo/brunette-boy-listening-music-earphones-working-outdoors_651396-3004.jpg",
+      "https://img.freepik.com/free-photo/young-content-creator-blonde-girl-with-headphones-working-her-laptop-table-with-camera_1268-17267.jpg?semt=ais_hybrid&w=740",
+    titles: [
+      "Trusted by Businesses",
+      "Easy Hiring Experience",
+      "Deliver Excellence",
+    ],
+    subtitle: "We match you with the right freelancer.",
   },
   {
-    title: "Grow Your Freelance Career",
-    subtitle: "Join, work, earn, repeat",
-    image:
-      "https://img.freepik.com/free-photo/bearded-freelancer-working-laptop-living-room-girlfriend-relaxing-sofa-background-using-her-phone-chips_482257-31206.jpg",
+    image: "https://img.freepik.com/premium-photo/positive-caucasian-man-sitting-desk-evening-time-talking-with-coworkers-via-video-call_161094-9409.jpg?uid=R138453286&ga=GA1.1.2049865628.1746344725&semt=ais_hybrid&w=740",
+    titles: [
+      "Your Freelance Marketplace",
+      "Simple. Safe. Fast.",
+      "All Skill Levels",
+    ],
+    subtitle: "Hire, manage, and pay freelancers with ease.",
   },
 ];
 
 const Banner = () => {
-  const timerRef = useRef(null);
+  return (
+    <Carousel
+      autoPlay
+      infiniteLoop
+      showThumbs={false}
+      showStatus={false}
+      interval={5000}
+      swipeable
+      emulateTouch
+    >
+      {slides.map((slide, index) => (
+        <div key={index} className="relative h-[70vh] md:h-[80vh] w-full">
+          <img
+            src={slide.image}
+            alt={`Slide ${index + 1}`}
+            className="w-full"
+          />
+          <div className="absolute inset-0  bg-opacity-50 flex flex-col justify-center items-center px-4 text-center">
+            <h1 className="text-white text-2xl md:text-4xl lg:text-5xl font-bold">
+              <TypewriterText words={slide.titles} />
+            </h1>
+            <p className="text-white text-base md:text-lg mt-4 max-w-2xl">
+              {slide.subtitle}
+            </p>
+            <button className="mt-6 px-6 py-2 bg-[#FF6F00] text-white font-semibold rounded hover:bg-orange-700 transition">
+              Get Started
+            </button>
+          </div>
+        </div>
+      ))}
+    </Carousel>
+  );
+};
 
-  const [sliderRef, instanceRef] = useKeenSlider({
+const TypewriterText = ({ words }) => {
+  const [text] = useTypewriter({
+    words,
     loop: true,
-    renderMode: "performance",
-    drag: false,
-    slides: { perView: 1 },
-    created(s) {
-      autoSlide(s);
-    },
-    animationEnded(s) {
-      autoSlide(s);
-    },
+    delaySpeed: 2000,
   });
 
-  const autoSlide = (slider) => {
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      slider.moveToIdx(slider.track.details.abs + 1, true, animation);
-    }, 8000); // match animation duration
-  };
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(timerRef.current); // Clean up on unmount
-    };
-  }, []);
-
   return (
-    <div className="relative w-full mt-10 overflow-hidden">
-      <div ref={sliderRef} className="keen-slider">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className="keen-slider__slide relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]"
-          >
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gray-900/60 flex flex-col justify-center items-center text-center text-white px-4 sm:px-6">
-              <div className="max-w-4xl px-4 sm:px-6 lg:px-8">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-2 sm:mb-4 animate-fade-in-down">
-                  {slide.title}
-                </h2>
-                <p className="text-base sm:text-lg md:text-xl text-gray-200 animate-fade-in-up">
-                  {slide.subtitle}
-                </p>
-                <button className="mt-4 sm:mt-6 md:mt-8 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 sm:py-3 sm:px-6 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
-                  Get Started
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Custom dots */}
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-gray-300 hover:bg-orange-500 transition-colors duration-300"
-            onClick={() => {
-              instanceRef.current?.moveToIdx(idx);
-              clearTimeout(timerRef.current);
-            }}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
-      </div>
-    </div>
+    <span>
+      {text}
+      <Cursor />
+    </span>
   );
 };
 
 export default Banner;
-
