@@ -6,7 +6,6 @@ import DatePicker from "react-datepicker";
 
 const UpdateTask = () => {
   const data = useLoaderData();
-  const { title, category, description, budget } = data;
 
   const { user } = useContext(AuthContext);
 
@@ -52,7 +51,7 @@ const UpdateTask = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/update/${data._id}`, {
+      const response = await fetch(`https://freelanzia-server.vercel.app/update/${data._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -152,7 +151,6 @@ const UpdateTask = () => {
                   id="title"
                   name="title"
                   value={formData.title}
-                  
                   required
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
                 />

@@ -51,7 +51,7 @@ const AddTask = () => {
       userEmail: user?.email || "", // include userEmail
     };
 
-    fetch("http://localhost:3000/tasks", {
+    fetch("https://freelanzia-server.vercel.app/tasks", {
       method: "POST",
       headers: {
         "content-type": "application/json",

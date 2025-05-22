@@ -6,9 +6,9 @@ import { Link } from "react-router";
 const PostedTask = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const { user } = useContext(AuthContext);
-  const { email } = user;
-  console.log(user);
+  const email = user?.email;
 
   const [isMobileView, setIsMobileView] = useState(false);
 
@@ -32,7 +32,7 @@ const PostedTask = () => {
     }
 
     setLoading(true);
-    fetch(`http://localhost:3000/tasks?email=${encodeURIComponent(email)}`)
+    fetch(`https://freelanzia-server.vercel.app/tasks?email=${encodeURIComponent(email)}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch tasks");
@@ -150,12 +150,12 @@ const PostedTask = () => {
                   >
                     Delete
                   </button>
-                  <button
-                    onClick={() => handleViewBids(_id)}
+                  <Link
+                    to={`/bids/${_id}`}
                     className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
                   >
                     Bids
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -224,7 +224,8 @@ const PostedTask = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap space-x-2">
-                      <Link to={`/update/${_id}`}
+                      <Link
+                        to={`/update/${_id}`}
                         onClick={() => handleUpdate(_id)}
                         className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
                       >

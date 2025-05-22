@@ -235,7 +235,7 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
 
-        fetch("http://localhost:3000/users", {
+        fetch("https://freelanzia-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -291,7 +291,7 @@ const Register = () => {
           displayName , email
         }
 
-         fetch("http://localhost:3000/users", {
+         fetch("https://freelanzia-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

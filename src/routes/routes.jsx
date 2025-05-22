@@ -9,8 +9,8 @@ import BrowseTask from "../pages/BrowseTask/BrowseTask";
 import PostedTask from "../pages/PostedTasks/PostedTask";
 import PrivateRoute from "../private/PrivateRoute";
 import TaskDetails from "../pages/BrowseTask/TaskDetails";
-import UPdateTask from "../pages/update/UPdateTask";
 import UpdateTask from "../pages/update/UPdateTask";
+import BidsPage from "../pages/BidsPage/BidsPage";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +41,9 @@ export const router = createBrowserRouter([
       {
         path: "/browse-tasks",
         loader: async () => {
-          const response = await fetch("http://localhost:3000/tasks");
+          const response = await fetch(
+            "https://freelanzia-server.vercel.app/tasks"
+          );
           if (!response.ok) {
             throw new Response("Failed to fetch tasks", {
               status: response.status,
@@ -68,19 +70,28 @@ export const router = createBrowserRouter([
         path: "/details/:id",
         element: <TaskDetails />,
         loader: async ({ params }) => {
-          const res = await fetch(`http://localhost:3000/tasks/${params.id}`);
+          const res = await fetch(
+            `https://freelanzia-server.vercel.app/tasks/${params.id}`
+          );
           return res.json();
         },
       },
 
       {
         path: "/update/:id",
-        element: <UpdateTask/>,
+        element: <UpdateTask />,
         loader: async ({ params }) => {
-          const res = await fetch(`http://localhost:3000/tasks/${params.id}`);
+          const res = await fetch(
+            `https://freelanzia-server.vercel.app/tasks/${params.id}`
+          );
           return res.json();
         },
-      }
+      },
+      
+      {
+        path: "/bids/:id",
+        element: <BidsPage />,
+      },
     ],
   },
 ]);
