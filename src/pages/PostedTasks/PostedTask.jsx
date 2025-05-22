@@ -237,12 +237,12 @@ const PostedTask = () => {
                       >
                         Delete
                       </button>
-                      <button
+                      <Link to={`/bids/${_id}`}
                         // onClick={() => handleViewBids(_id)}
                         className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
                       >
                         Bids
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
-import Layout from "../layout/Layout";
-import Home from "../pages/Home/Home";
 
+import Home from "../pages/Home/Home";
+import Layout from "../Layouts/Layout";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
 import AddTask from "../pages/AddTask/AddTask";
@@ -11,11 +11,14 @@ import PrivateRoute from "../private/PrivateRoute";
 import TaskDetails from "../pages/BrowseTask/TaskDetails";
 import UpdateTask from "../pages/update/UPdateTask";
 import BidsPage from "../pages/BidsPage/BidsPage";
+import Error from "../components/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <Error />,
     element: <Layout />,
+
     children: [
       {
         index: true,
@@ -87,7 +90,7 @@ export const router = createBrowserRouter([
           return res.json();
         },
       },
-      
+
       {
         path: "/bids/:id",
         element: <BidsPage />,

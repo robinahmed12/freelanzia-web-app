@@ -3,6 +3,9 @@ import Button from "../Button/Button";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Button2 from "../Button/Button2";
+import Toggle from "../Button/Toggle";
+
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +20,7 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+ 
 
   return (
     <header className="bg-white shadow-sm">
@@ -91,6 +95,8 @@ const Navbar = () => {
               </li>
             </ul>
 
+             <Toggle/>
+
             {/* User Profile Section */}
             {user ? (
               <div className="relative">
@@ -152,6 +158,8 @@ const Navbar = () => {
                 </NavLink>
               </div>
             )}
+
+           
           </nav>
 
          {/* Mobile menu button */}
@@ -246,6 +254,8 @@ const Navbar = () => {
               </NavLink>
             </li>
           </ul>
+
+          
 
           {/* Mobile User Profile Section */}
           <div className="mt-4 pt-4 border-t border-gray-200">

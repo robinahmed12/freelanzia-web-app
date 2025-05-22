@@ -3,6 +3,7 @@ import Navbar from "../components/Header/Navbar";
 import { Outlet } from "react-router";
 import Footer from "../components/Footer/Footer";
 import { Bounce, ToastContainer } from "react-toastify";
+import RouteLoader from "../components/RouteLoader";
 
 const Layout = () => {
   return (
@@ -14,6 +15,7 @@ const Layout = () => {
       </header>
 
       <main className="min-h-[calc(100vh-571px)]">
+        <RouteLoader />
         <Outlet />
 
         <ToastContainer

@@ -1,8 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import "tailwindcss";
-@plugin "daisyui";
-body,
-html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+
+:root {
+  --background: 255, 255, 255;
+  --border: 230, 230, 230;
+  --card: 245, 245, 245;
+  --copy-primary: 0, 0, 0;
+  --copy-secondary: 100, 100, 100;
+  --cta: 0, 120, 255;
+  --cta-active: 0, 100, 220;
+  --cta-text: 255, 255, 255;
+  --grape: 128, 0, 128;
 }
+
+.dark {
+  --background: 20, 20, 20;
+  --border: 50, 50, 50;
+  --card: 30, 30, 30;
+  --copy-primary: 255, 255, 255;
+  --copy-secondary: 180, 180, 180;
+  --cta: 0, 160, 255;
+  --cta-active: 0, 130, 220;
+  --cta-text: 255, 255, 255;
+  --grape: 200, 100, 200;
+}
+
+
