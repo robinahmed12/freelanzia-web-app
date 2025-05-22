@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Button2 from "../Button/Button2";
-import Toggle from "../Button/Toggle";
+// import Toggle from "../Button/Toggle";
 import log from "../../assets/logo.png"
 
 
@@ -30,9 +30,9 @@ const Navbar = () => {
           {/* Logo */}
           <NavLink
             to="/"
-            className="flex items-center p-2 text-2xl font-bold text-gray-800 hover:text-orange-600 transition-colors"
+            className="flex justify-center items-center p-2 text-2xl font-bold text-gray-800 hover:text-orange-600 transition-colors"
           >
-           <img className="w-[300px] mt-5" src={log} alt="" srcset="" />
+           <img className="w-[300px]" src={log} alt="" srcset="" />
           </NavLink>
 
           {/* Desktop Navigation */}
@@ -96,7 +96,7 @@ const Navbar = () => {
               </li>
             </ul>
 
-             <Toggle/>
+             {/* <Toggle/> */}
 
             {/* User Profile Section */}
             {user ? (
