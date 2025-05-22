@@ -64,8 +64,11 @@ export const router = createBrowserRouter([
 
       {
         path: "/details/:id",
-        loader: ({ params }) => fetch(`http://localhost:3000/${params.id}`),
         element: <TaskDetails />,
+        loader: async ({ params }) => {
+          const res = await fetch(`http://localhost:3000/tasks/${params.id}`);
+          return res.json();
+        },
       },
     ],
   },

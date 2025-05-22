@@ -20,6 +20,7 @@ const TaskDetails = () => {
   };
 
   const data = useLoaderData();
+  console.log(data);
   
 
   return (
@@ -32,9 +33,7 @@ const TaskDetails = () => {
               <FaShoppingCart className="text-xl" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">
-                {data.title}
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-800">{data.title}</h2>
               <div className="flex items-center mt-1">
                 <FaCode className="text-gray-500 mr-2" />
                 <span className="text-gray-600">{data.category}</span>

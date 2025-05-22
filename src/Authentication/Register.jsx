@@ -211,6 +211,8 @@ const Register = () => {
       photo,
       createdAt: new Date(),
     };
+    console.log(userData);
+    
 
     const RegExpLower = /[a-z]/;
     const RegExpUpper = /[A-Z]/;
@@ -282,7 +284,27 @@ const Register = () => {
           theme: "light",
           transition: Bounce,
         });
+
         const user = result.user;
+        const {displayName , email} = user
+        const userProfile = {
+          displayName , email
+        }
+
+         fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userProfile),
+        })
+          .then((res) => res.json()) // ✅ Parse JSON
+          .then((data) => {
+            console.log(data);
+            
+          });
+        
+        
         setUser(user);
       })
       .catch((error) => {
