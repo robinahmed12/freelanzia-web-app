@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const PostedTask = () => {
   const [tasks, setTasks] = useState([]);
@@ -55,28 +57,42 @@ const PostedTask = () => {
   };
 
   const handleDelete = async (taskId) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this task?"
-    );
-    if (!confirmed) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
       const res = await fetch(`http://localhost:3000/tasks/${taskId}`, {
         method: "DELETE",
       });
+
       if (!res.ok) throw new Error("Failed to delete task");
+
+      // Show success alert
+      await Swal.fire({
+        title: "Deleted!",
+        text: "Your task has been deleted.",
+        icon: "success",
+      });
 
       // Remove task from state
       setTasks((prev) => prev.filter((task) => task._id !== taskId));
     } catch (error) {
       console.error(error);
-      alert("Delete failed");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Delete failed",
+      });
     }
-  };
-
-  const handleViewBids = (taskId) => {
-    console.log("View Bids clicked for task id:", taskId);
-    // TODO: navigate to bids page or open bids modal
   };
 
   if (loading) return <div>Loading tasks...</div>;
@@ -208,12 +224,12 @@ const PostedTask = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap space-x-2">
-                      <button
+                      <Link to={`/update/${_id}`}
                         onClick={() => handleUpdate(_id)}
                         className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
                       >
                         Update
-                      </button>
+                      </Link>
                       <button
                         onClick={() => handleDelete(_id)}
                         className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
@@ -221,7 +237,7 @@ const PostedTask = () => {
                         Delete
                       </button>
                       <button
-                        onClick={() => handleViewBids(_id)}
+                        // onClick={() => handleViewBids(_id)}
                         className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
                       >
                         Bids

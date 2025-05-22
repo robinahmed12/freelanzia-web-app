@@ -9,6 +9,8 @@ import BrowseTask from "../pages/BrowseTask/BrowseTask";
 import PostedTask from "../pages/PostedTasks/PostedTask";
 import PrivateRoute from "../private/PrivateRoute";
 import TaskDetails from "../pages/BrowseTask/TaskDetails";
+import UPdateTask from "../pages/update/UPdateTask";
+import UpdateTask from "../pages/update/UPdateTask";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +72,15 @@ export const router = createBrowserRouter([
           return res.json();
         },
       },
+
+      {
+        path: "/update/:id",
+        element: <UpdateTask/>,
+        loader: async ({ params }) => {
+          const res = await fetch(`http://localhost:3000/tasks/${params.id}`);
+          return res.json();
+        },
+      }
     ],
   },
 ]);
