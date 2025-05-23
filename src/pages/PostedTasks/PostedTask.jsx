@@ -49,8 +49,8 @@ const PostedTask = () => {
       .catch((e) => {
         console.error("Fetch error:", e);
         setTasks([]);
-      })
-      // .finally(() => setLoading(false));
+      });
+    // .finally(() => setLoading(false));
   }, [email]);
 
   const handleDelete = async (taskId) => {
@@ -67,9 +67,12 @@ const PostedTask = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`https://freelanzia-server.vercel.app/tasks/${taskId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://freelanzia-server.vercel.app/tasks/${taskId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to delete task");
 

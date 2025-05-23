@@ -5,6 +5,8 @@ import Footer from "../components/Footer/Footer";
 import { Bounce, ToastContainer } from "react-toastify";
 import RouteLoader from "../components/RouteLoader";
 
+import RouteAnimation from "../components/RouteAnimation";
+
 const Layout = () => {
   return (
     <>
@@ -16,7 +18,9 @@ const Layout = () => {
 
       <main className="min-h-[calc(100vh-571px)]">
         <RouteLoader />
-        <Outlet />
+        <RouteAnimation>
+          <Outlet />
+        </RouteAnimation>
 
         <ToastContainer
           position="top-center"

@@ -54,13 +54,24 @@ const AddTask = () => {
     fetch("https://freelanzia-server.vercel.app/tasks", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(taskData),
     })
-      .then((res) => res.json())
+      .then(async (response) => {
+        if (!response.ok) {
+          // Try to get error message from response
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(
+            errorData.error ||
+              errorData.message ||
+              `HTTP error! status: ${response.status}`
+          );
+        }
+        return response.json();
+      })
       .then((data) => {
-        if (data.insertedId) {
+        if (data.success && data.insertedId) {
           Swal.fire({
             position: "top-center",
             icon: "success",
@@ -78,12 +89,16 @@ const AddTask = () => {
             budget: "",
           });
         } else {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Failed to add task!",
-          });
+          throw new Error(data.error || "Failed to add task");
         }
+      })
+      .catch((error) => {
+        console.error("Error adding task:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.message || "Failed to add task!",
+        });
       });
   };
 

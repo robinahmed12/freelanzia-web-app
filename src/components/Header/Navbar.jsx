@@ -279,13 +279,6 @@ const Navbar = () => {
                   >
                     <Button />
                   </NavLink>
-                  <NavLink
-                    to="/register"
-                    onClick={toggleMenu}
-                    className="block px-4 py-2 text-center bg-orange-600 hover:bg-orange-700 text-white rounded-md transition-colors text-base font-medium"
-                  >
-                    Register
-                  </NavLink>
                 </div>
               )}
             </div>

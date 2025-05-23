@@ -25,7 +25,7 @@ const BrowseCard = ({ task }) => {
       </div>
       
       {/* Main content */}
-      <div className="p-5 flex-grow">
+      <div className="p-5 mt-7 flex-grow">
         <h3 className="text-xl font-bold text-primary mb-3 line-clamp-2 min-h-[56px]">
           {title}
         </h3>

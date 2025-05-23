@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 const BidsPage = () => {
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +13,7 @@ const BidsPage = () => {
         const result = await response.json();
         setData(result);
       } catch (err) {
-        setError(err.message);
+        console.log(err.message);
       } finally {
         console.log();
       }
@@ -22,14 +21,6 @@ const BidsPage = () => {
 
     fetchData();
   }, []);
-
-  if (error) {
-    return (
-      <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300 p-4 rounded-lg">
-        <p>Error loading bids: {error}</p>
-      </div>
-    );
-  }
 
   return (
     <div className="container mx-auto px-4 py-8">
