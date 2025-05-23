@@ -5,6 +5,7 @@ import FeatureTask from "../../sections/FeatureTask";
 import Counter from "../../sections/Counter";
 import Testimonial from "../../sections/Testimonial";
 import Animation from "../../components/Animation";
+import AboutSection from "../About/AboutSection";
 
 const Home = () => {
   return (
@@ -21,9 +22,14 @@ const Home = () => {
         <Counter />
       </Animation>
 
+      <Animation>
+        <AboutSection/>
+      </Animation>
+
       <Animation delay={0.4}>
         <Testimonial />
       </Animation>
+
     </>
   );
 };

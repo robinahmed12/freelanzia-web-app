@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { FaXTwitter } from "react-icons/fa6";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo-dark.png";
 import {
   FaFacebookF,
   FaLinkedinIn,

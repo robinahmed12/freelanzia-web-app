@@ -7,31 +7,36 @@ const FeatureTask = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const url = `https://freelanzia-server.vercel.app/featured-tasks?t=${Date.now()}`;
-        const response = await fetch(url);
+      const url = `https://freelanzia-server.vercel.app/featured-tasks?t=${Date.now()}`;
+      const response = await fetch(url);
 
-        if (!response.ok) throw new Error("Network response was not ok");
-
+      if (response.ok) {
         const result = await response.json();
 
-        if (!result.success) throw new Error(result.error || "Failed to load");
+        if (result.success) {
+          const now = new Date();
+          const fifteenDaysFromNow = new Date();
+          fifteenDaysFromNow.setDate(now.getDate() + 15);
 
-        const validTasks = result.data
-          .map((task) => ({
-            ...task,
-            deadline: task.deadline ? new Date(task.deadline) : null,
-            budget: task.budget || "Not specified",
-            category: task.category || "General",
-          }))
-          .filter((task) => task.title);
+          const validTasks = result.data
+            .map((task) => ({
+              ...task,
+              deadline: task.deadline ? new Date(task.deadline) : null,
+              budget: task.budget || "Not specified",
+              category: task.category || "General",
+            }))
+            .filter(
+              (task) =>
+                task.title &&
+                task.deadline &&
+                task.deadline >= fifteenDaysFromNow
+            )
+            .slice(0, 8); // Only take the first 4 tasks
 
-        setTasks(validTasks);
-      } catch (error) {
-        console.error("Fetch error:", error);
-      } finally {
-        setIsLoading(false);
+          setTasks(validTasks);
+        }
       }
+      setIsLoading(false);
     };
 
     fetchData();

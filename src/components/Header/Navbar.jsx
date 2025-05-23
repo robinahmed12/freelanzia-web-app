@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Button from "../Button/Button";
 import Button2 from "../Button/Button2";
-import log from "../../assets/logo.png";
+import log from "../../assets/logo-dark.png";
 import logDark from "../../assets/logo-dark.png"; // Optional dark mode logo
 import DarkModeBtn from "../DarkModeBtn";
 
