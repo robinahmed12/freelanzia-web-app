@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const PostedTask = () => {
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
   const email = user?.email;
@@ -13,7 +13,7 @@ const PostedTask = () => {
   const [isMobileView, setIsMobileView] = useState(false);
 
   // Check screen size on component mount and resize
-  useState(() => {
+  useEffect(() => {
     const checkScreenSize = () => {
       setIsMobileView(window.innerWidth < 768);
     };
@@ -27,11 +27,10 @@ const PostedTask = () => {
   useEffect(() => {
     if (!email) {
       console.warn("No userEmail provided");
-      setLoading(false);
+      // setLoading(false);
       return;
     }
 
-    setLoading(true);
     fetch(
       `https://freelanzia-server.vercel.app/tasks?email=${encodeURIComponent(
         email
@@ -51,14 +50,8 @@ const PostedTask = () => {
         console.error("Fetch error:", e);
         setTasks([]);
       })
-      .finally(() => setLoading(false));
+      // .finally(() => setLoading(false));
   }, [email]);
-
-  // Handler functions
-  const handleUpdate = (taskId) => {
-    console.log("Update clicked for task id:", taskId);
-    // TODO: open update modal or navigate to update page
-  };
 
   const handleDelete = async (taskId) => {
     const result = await Swal.fire({
@@ -66,8 +59,8 @@ const PostedTask = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#FF6F00",
+      cancelButtonColor: "#333333",
       confirmButtonText: "Yes, delete it!",
     });
 
@@ -80,14 +73,13 @@ const PostedTask = () => {
 
       if (!res.ok) throw new Error("Failed to delete task");
 
-      // Show success alert
       await Swal.fire({
         title: "Deleted!",
         text: "Your task has been deleted.",
         icon: "success",
+        confirmButtonColor: "#FF6F00",
       });
 
-      // Remove task from state
       setTasks((prev) => prev.filter((task) => task._id !== taskId));
     } catch (error) {
       console.error(error);
@@ -95,160 +87,222 @@ const PostedTask = () => {
         icon: "error",
         title: "Oops...",
         text: "Delete failed",
+        confirmButtonColor: "#FF6F00",
       });
     }
   };
 
-  if (loading) return <div>Loading tasks...</div>;
-  if (tasks.length === 0) return <div>No tasks posted yet.</div>;
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-64">
+  //       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+  //     </div>
+  //   );
+  // }
+
+  if (tasks.length === 0) {
+    return (
+      <div className="bg-primary rounded-lg mt-20 max-w-7xl mx-auto shadow-md p-8 text-center">
+        <h2 className="text-2xl font-bold text-primary mb-4">
+          My Posted Tasks
+        </h2>
+        <p className="text-secondary mb-6">No tasks posted yet.</p>
+        <Link
+          to="/post-task"
+          className="btn-orange px-6 py-2 rounded-lg inline-block"
+        >
+          Post Your First Task
+        </Link>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <div className="bg-white rounded-lg mt-20 max-w-7xl mx-auto shadow-md p-6">
-          <h2 className="text-2xl mt-12 text-center font-bold text-gray-800 mb-6">
-            My Posted Tasks
-          </h2>
+    <div className="bg-primary min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-primary rounded-xl shadow-lg overflow-hidden">
+          <div className="px-6 py-5 border-b border-primary">
+            <h2 className="text-2xl font-bold text-primary">My Posted Tasks</h2>
+            <p className="text-secondary mt-1">
+              {tasks.length} {tasks.length === 1 ? "task" : "tasks"} posted
+            </p>
+          </div>
 
           {isMobileView ? (
-            // Mobile view - card layout
-            <div className="space-y-4">
+            // Mobile view - enhanced card layout
+            <div className="grid gap-5 p-4 sm:grid-cols-2 lg:hidden">
               {tasks.map(({ _id, title, description, deadline, budget }) => (
                 <div
                   key={_id}
-                  className="border border-gray-200 rounded-lg p-4 shadow-sm"
+                  className="card hover:shadow-md transition-shadow duration-300"
                 >
-                  <div className="mb-3">
-                    <h3 className="font-semibold text-gray-800 text-lg">
-                      {title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mt-1">
-                      {description || "No description"}
+                  <div className="p-5">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-semibold text-primary truncate">
+                        {title}
+                      </h3>
+                      <span className="bg-accent text-accent px-2 py-1 rounded-full text-xs font-medium">
+                        {budget ? `$${budget}` : "Flexible"}
+                      </span>
+                    </div>
+
+                    <p className="text-secondary text-sm mb-4 line-clamp-2">
+                      {description || "No description provided"}
                     </p>
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-sm mb-3">
-                    <div>
-                      <p className="text-gray-500">Deadline</p>
-                      <p className="text-gray-800">
-                        {deadline
-                          ? new Date(deadline).toLocaleDateString()
-                          : "-"}
-                      </p>
+                    <div className="flex items-center text-sm text-secondary mb-4">
+                      <svg
+                        className="w-4 h-4 mr-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      {deadline
+                        ? new Date(deadline).toLocaleDateString()
+                        : "No deadline"}
                     </div>
-                    <div>
-                      <p className="text-gray-500">Budget</p>
-                      <p className="text-gray-800">
-                        {budget ? `$${budget}` : "-"}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleUpdate(_id)}
-                      className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
-                    >
-                      Update
-                    </button>
-                    <button
-                      onClick={() => handleDelete(_id)}
-                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
-                    >
-                      Delete
-                    </button>
+                    <div className="flex space-x-2">
+                      <Link
+                        to={`/update/${_id}`}
+                        className="flex-1 btn-orange py-2 px-3 text-center text-sm rounded-lg"
+                      >
+                        Update
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(_id)}
+                        className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-3 text-sm rounded-lg"
+                      >
+                        Delete
+                      </button>
+                    </div>
+
                     <Link
                       to={`/bids/${_id}`}
-                      className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
+                      className="w-full mt-2 border border-accent text-accent hover:bg-accent/10 py-2 px-3 text-sm rounded-lg text-center block"
                     >
-                      Bids
+                      View Bids
                     </Link>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            // Desktop/tablet view - table layout
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+            // Desktop/tablet view - enhanced table layout
+            <div className="hidden lg:block overflow-x-auto">
+              <table className="min-w-full divide-y divide-primary">
+                <thead className="bg-secondary">
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-primary uppercase tracking-wider"
                     >
-                      Title
+                      Task Title
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-primary uppercase tracking-wider"
                     >
                       Description
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-primary uppercase tracking-wider"
                     >
                       Deadline
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-xs font-medium text-primary uppercase tracking-wider"
                     >
                       Budget
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-right text-xs font-medium text-primary uppercase tracking-wider"
                     >
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-primary divide-y divide-primary">
                   {tasks.map(
                     ({ _id, title, description, deadline, budget }) => (
-                      <tr key={_id} className="hover:bg-gray-50">
+                      <tr
+                        key={_id}
+                        className="hover:bg-secondary/10 transition-colors duration-150"
+                      >
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
-                            {title}
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-10 w-10 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center">
+                              <span className="text-orange-600 dark:text-orange-400 font-medium">
+                                {title.charAt(0).toUpperCase()}
+                              </span>
+                            </div>
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-primary">
+                                {title}
+                              </div>
+                            </div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-sm text-gray-500 max-w-xs truncate">
-                            {description || "-"}
+                          <div className="text-sm text-secondary max-w-md line-clamp-2">
+                            {description || "No description provided"}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-500">
-                            {deadline
-                              ? new Date(deadline).toLocaleDateString()
-                              : "-"}
+                          <div className="text-sm text-secondary">
+                            <div className="flex items-center">
+                              <svg
+                                className="w-4 h-4 mr-1"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                />
+                              </svg>
+                              {deadline
+                                ? new Date(deadline).toLocaleDateString()
+                                : "No deadline"}
+                            </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-500">
-                            {budget ? `$${budget}` : "-"}
-                          </div>
+                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200">
+                            {budget ? `$${budget}` : "Flexible"}
+                          </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap space-x-2">
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                           <Link
                             to={`/update/${_id}`}
-                            onClick={() => handleUpdate(_id)}
-                            className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
+                            className="btn-orange px-4 py-2 rounded-lg"
                           >
                             Update
                           </Link>
                           <button
                             onClick={() => handleDelete(_id)}
-                            className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
+                            className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"
                           >
                             Delete
                           </button>
                           <Link
                             to={`/bids/${_id}`}
-                            // onClick={() => handleViewBids(_id)}
-                            className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
+                            className="border border-accent text-accent hover:bg-accent/10 px-4 py-2 rounded-lg"
                           >
                             Bids
                           </Link>
@@ -262,7 +316,7 @@ const PostedTask = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -9,9 +9,10 @@ import BrowseTask from "../pages/BrowseTask/BrowseTask";
 import PostedTask from "../pages/PostedTasks/PostedTask";
 import PrivateRoute from "../private/PrivateRoute";
 import TaskDetails from "../pages/BrowseTask/TaskDetails";
-import UpdateTask from "../pages/update/UPdateTask";
+
 import BidsPage from "../pages/BidsPage/BidsPage";
 import Error from "../components/Error";
+import UpdateTask from "../pages/update/UpdateTask";
 
 export const router = createBrowserRouter([
   {

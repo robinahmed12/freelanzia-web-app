@@ -211,7 +211,7 @@ const Register = () => {
       photo,
       createdAt: new Date(),
     };
-    console.log(userData);
+  
     
 
     const RegExpLower = /[a-z]/;
@@ -244,7 +244,8 @@ const Register = () => {
         })
           .then((res) => res.json()) // ✅ Parse JSON
           .then((data) => {
-            console.log(data);
+            const user = data.user
+            setUser(user)
             
           });
 
@@ -300,7 +301,8 @@ const Register = () => {
         })
           .then((res) => res.json()) // ✅ Parse JSON
           .then((data) => {
-            console.log(data);
+           const user = data.user
+           setUser(user)
             
           });
         
