@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-charcoal text-white mt-28 relative overflow-hidden">
+    <footer className="bg-charcoal bg-primary text-white mt-28 relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-orange-600 opacity-10"></div>
       <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-orange-600 opacity-10"></div>

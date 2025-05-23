@@ -32,7 +32,11 @@ const PostedTask = () => {
     }
 
     setLoading(true);
-    fetch(`https://freelanzia-server.vercel.app/tasks?email=${encodeURIComponent(email)}`)
+    fetch(
+      `https://freelanzia-server.vercel.app/tasks?email=${encodeURIComponent(
+        email
+      )}`
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch tasks");
@@ -100,156 +104,163 @@ const PostedTask = () => {
 
   return (
     <>
-      <div className="bg-white rounded-lg mt-20 max-w-7xl mx-auto shadow-md p-6">
-        <h2 className="text-2xl mt-12 text-center font-bold text-gray-800 mb-6">
-          My Posted Tasks
-        </h2>
+      <div>
+        <div className="bg-white rounded-lg mt-20 max-w-7xl mx-auto shadow-md p-6">
+          <h2 className="text-2xl mt-12 text-center font-bold text-gray-800 mb-6">
+            My Posted Tasks
+          </h2>
 
-        {isMobileView ? (
-          // Mobile view - card layout
-          <div className="space-y-4">
-            {tasks.map(({ _id, title, description, deadline, budget }) => (
-              <div
-                key={_id}
-                className="border border-gray-200 rounded-lg p-4 shadow-sm"
-              >
-                <div className="mb-3">
-                  <h3 className="font-semibold text-gray-800 text-lg">
-                    {title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-1">
-                    {description || "No description"}
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-sm mb-3">
-                  <div>
-                    <p className="text-gray-500">Deadline</p>
-                    <p className="text-gray-800">
-                      {deadline ? new Date(deadline).toLocaleDateString() : "-"}
+          {isMobileView ? (
+            // Mobile view - card layout
+            <div className="space-y-4">
+              {tasks.map(({ _id, title, description, deadline, budget }) => (
+                <div
+                  key={_id}
+                  className="border border-gray-200 rounded-lg p-4 shadow-sm"
+                >
+                  <div className="mb-3">
+                    <h3 className="font-semibold text-gray-800 text-lg">
+                      {title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mt-1">
+                      {description || "No description"}
                     </p>
                   </div>
-                  <div>
-                    <p className="text-gray-500">Budget</p>
-                    <p className="text-gray-800">
-                      {budget ? `$${budget}` : "-"}
-                    </p>
-                  </div>
-                </div>
 
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => handleUpdate(_id)}
-                    className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => handleDelete(_id)}
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Delete
-                  </button>
-                  <Link
-                    to={`/bids/${_id}`}
-                    className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
-                  >
-                    Bids
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          // Desktop/tablet view - table layout
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Description
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Deadline
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Budget
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {tasks.map(({ _id, title, description, deadline, budget }) => (
-                  <tr key={_id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {title}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500 max-w-xs truncate">
-                        {description || "-"}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                  <div className="grid grid-cols-2 gap-2 text-sm mb-3">
+                    <div>
+                      <p className="text-gray-500">Deadline</p>
+                      <p className="text-gray-800">
                         {deadline
                           ? new Date(deadline).toLocaleDateString()
                           : "-"}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Budget</p>
+                      <p className="text-gray-800">
                         {budget ? `$${budget}` : "-"}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap space-x-2">
-                      <Link
-                        to={`/update/${_id}`}
-                        onClick={() => handleUpdate(_id)}
-                        className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
-                      >
-                        Update
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(_id)}
-                        className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
-                      >
-                        Delete
-                      </button>
-                      <Link to={`/bids/${_id}`}
-                        // onClick={() => handleViewBids(_id)}
-                        className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
-                      >
-                        Bids
-                      </Link>
-                    </td>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleUpdate(_id)}
+                      className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={() => handleDelete(_id)}
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
+                    >
+                      Delete
+                    </button>
+                    <Link
+                      to={`/bids/${_id}`}
+                      className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
+                    >
+                      Bids
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            // Desktop/tablet view - table layout
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Title
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Description
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Deadline
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Budget
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {tasks.map(
+                    ({ _id, title, description, deadline, budget }) => (
+                      <tr key={_id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-900">
+                            {title}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="text-sm text-gray-500 max-w-xs truncate">
+                            {description || "-"}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">
+                            {deadline
+                              ? new Date(deadline).toLocaleDateString()
+                              : "-"}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">
+                            {budget ? `$${budget}` : "-"}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap space-x-2">
+                          <Link
+                            to={`/update/${_id}`}
+                            onClick={() => handleUpdate(_id)}
+                            className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded text-sm"
+                          >
+                            Update
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(_id)}
+                            className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm"
+                          >
+                            Delete
+                          </button>
+                          <Link
+                            to={`/bids/${_id}`}
+                            // onClick={() => handleViewBids(_id)}
+                            className="border border-amber-600 text-amber-600 hover:bg-amber-50 px-3 py-1 rounded text-sm"
+                          >
+                            Bids
+                          </Link>
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

@@ -17,7 +17,7 @@ const BrowseCard = ({ task }) => {
     <>
       <div
         key={task.id}
-        className="bg-white rounded-lg shadow-md overflow-hidden border border-[#eee] hover:shadow-lg transition-shadow duration-300"
+        className="rounded-lg bg-white shadow-md overflow-hidden border border-[#eee] hover:shadow-lg transition-shadow duration-300"
       >
         <div className="p-5">
           <h3 className="text-xl font-semibold text-[#333333] mb-2">{title}</h3>

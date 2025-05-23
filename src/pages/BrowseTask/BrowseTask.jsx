@@ -15,11 +15,11 @@ const BrowseTask = () => {
 
   return (
     <>
-      <div className="min-h-screen mt-20 lg:px-0 px-4 bg-white  md:p-8">
+      <div className="min-h-screen bg-primary mt-20 lg:px-0 px-4   md:p-8">
         <div className="max-w-7xl mx-auto">
           {/* Page Heading */}
           <div className="mb-8 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-[#333333] mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-accent mb-2">
               Browse Available Tasks
             </h1>
             <p className="text-[#666] md:text-lg max-w-2xl mx-auto">

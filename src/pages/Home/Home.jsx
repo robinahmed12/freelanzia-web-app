@@ -5,6 +5,7 @@ import Counter from "../../sections/Counter";
 import Testimonial from "../../sections/Testimonial";
 
 
+
 const Home = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const Home = () => {
       <FeatureTask />
       <Counter />
       <Testimonial />
+      
      
     </>
   );

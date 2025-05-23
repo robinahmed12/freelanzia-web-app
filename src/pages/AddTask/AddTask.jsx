@@ -88,11 +88,11 @@ const AddTask = () => {
   };
 
   return (
-    <div className="min-h-screen mt-20 bg-white py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen mt-20 bg-primary  py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Create New Task
+          <h2 className="text-3xl font-extrabold text-accent sm:text-4xl">
+            Post Your Task
           </h2>
           <p className="mt-4 text-lg text-gray-600">
             Fill out the form below to post a new task.

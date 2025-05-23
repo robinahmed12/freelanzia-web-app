@@ -62,9 +62,9 @@ export default function TestimonialSlider() {
   });
 
   return (
-    <div className="w-full bg-white px-4 py-12  md:px-6 lg:px-8">
+    <div className="w-full  bg-primary px-4 py-12  md:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl mt-20">
-        <h2 className="mb-8 text-center text-2xl font-bold text-[#333333] md:text-4xl">
+        <h2 className="mb-8 text-center text-2xl font-bold text-accent md:text-4xl">
           What Our Freelancers Say
         </h2>
         <div className="relative">

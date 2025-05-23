@@ -18,11 +18,11 @@ const Counter = () => {
   return (
     <section
       ref={ref}
-      className="bg-white py-12 sm:py-16 lg:py-20 px-4 mt-20 sm:px-6 lg:px-8"
+      className="bg-primary py-12 sm:py-16 lg:py-20 px-4 mt-20 sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-2xl text-accent sm:text-3xl md:text-4xl font-bold ">
             Trusted by Thousands Worldwide
           </h2>
         </div>

@@ -5,11 +5,12 @@ import "./index.css";
 import "./style.css";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/routes.jsx";
-import AuthProvider from "./context/AuthProvider.jsx";
 
 // React Query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ThemeProvider from "./context/ThemeProvider.jsx";
+
+import AuthProvider from "./context/AuthProvider.jsx";
+import App from "./App.jsx";
 
 const queryClient = new QueryClient();
 
@@ -19,9 +20,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeProvider>
+        <App>
           <RouterProvider router={router} />
-        </ThemeProvider>
+        </App>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
