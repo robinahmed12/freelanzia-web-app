@@ -7,7 +7,7 @@ TaskFlow is a platform that connects individuals needing small tasks completed w
 
 ## Live Demo
 
-🔗 [View Live Site]((https://freelanzia-auth.web.app/))
+🔗 [View Live Site](https://freelanzia-auth.web.app/)
 
 
 
@@ -49,38 +49,64 @@ TaskFlow is a platform that connects individuals needing small tasks completed w
 
 
 Project Structure
+
+
+
 taskflow/
+
 ├── client/                  # Frontend code
-│   ├── public/              # Static files
-│   └── src/                 # React components
-│       ├── assets/          # Images, icons
-│       ├── components/      # Reusable components
-│       ├── context/         # Context providers
-│       ├── hooks/           # Custom hooks
-│       ├── pages/           # Page components
-│       ├── routes/          # Route configurations
+│   ├── public/       
+# Static files
+│   └── src/      
+# React components
+│       ├── assets/ 
+# Images, icons
+│       ├── components/ 
+# Reusable components
+│       ├── context/ 
+# Context providers
+│       ├── hooks/ 
+# Custom hooks
+│       ├── pages/ 
+# Page components
+
+│       ├── routes/
+# Route configurations
 │       └── styles/          # CSS/Tailwind files
-├── server/                  # Backend code
-│   ├── controllers/         # Route controllers
-│   ├── models/              # Database models
-│   ├── routes/              # API routes
-│   └── utils/               # Utility functions
-└── README.md                # Project documentation
+├── server/     
+# Backend code
+│   ├── controllers/
+# Route controllers
+│   ├── models/  
+# Database models
+│   ├── routes/    
+# API routes
+│   └── utils/    
+# Utility functions
+└── README.md     
+# Project documentation
 
 
 
 Key Functionality
-Home Page: Features a dynamic slider, featured tasks section, and statistics
 
-Task Management: Full CRUD operations for tasks with protected routes
+Home Page: 
+Features a dynamic slider, featured tasks section, and statistics
 
-Authentication: Secure login with password validation and Google OAuth
+Task Management:
+Full CRUD operations for tasks with protected routes
 
-Bidding System: Track bids on tasks with real-time updates
+Authentication: 
+Secure login with password validation and Google OAuth
 
-Responsive UI: Adapts to all screen sizes with Tailwind CSS
+Bidding System:
+Track bids on tasks with real-time updates
 
-Theme Toggle: Switch between dark and light modes
+Responsive UI:
+Adapts to all screen sizes with Tailwind CSS
+
+Theme Toggle:
+Switch between dark and light modes
 
 
 Contact
