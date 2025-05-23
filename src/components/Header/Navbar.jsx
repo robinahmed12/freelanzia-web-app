@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   const navLinkClasses = ({ isActive }) =>
-    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+    `px-3 py-2 rounded-md text-lg font-medium transition-colors ${
       isActive
         ? "text-white bg-orange-600 dark:bg-orange-700"
         : "text-gray-800 dark:text-orange-100 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-gray-700"
@@ -175,8 +175,8 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-white dark:bg-gray-800 px-4 pb-4 shadow-md rounded-lg mt-2 border border-gray-200 dark:border-gray-700">
-            <ul className="flex flex-col space-y-2 py-2">
+          <div className="lg:hidden bg-white dark:bg-gray-800 px-2 pb-4 shadow-md rounded-lg mt-2 border border-gray-200 dark:border-gray-700">
+            <ul className="flex text-lg flex-col space-y-2 py-2">
               <li>
                 <NavLink
                   to="/"

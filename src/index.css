@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 @tailwind utilities;
 @tailwind utilities;
@@ -85,4 +86,11 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Prevents horizontal scroll */
+   font-family: "Plus Jakarta Sans", sans-serif;
 }
+
+html {
+   font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+

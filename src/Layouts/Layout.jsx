@@ -6,6 +6,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import RouteLoader from "../components/RouteLoader";
 
 import RouteAnimation from "../components/RouteAnimation";
+import Animation from "../components/Animation";
 
 const Layout = () => {
   return (
@@ -38,7 +39,9 @@ const Layout = () => {
       </main>
 
       <footer>
-        <Footer />
+        <Animation delay={0.3}>
+          <Footer />
+        </Animation>
       </footer>
     </>
   );

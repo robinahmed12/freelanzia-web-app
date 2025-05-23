@@ -6,6 +6,7 @@ import Counter from "../../sections/Counter";
 import Testimonial from "../../sections/Testimonial";
 import Animation from "../../components/Animation";
 import AboutSection from "../About/AboutSection";
+import FreelancerPlatform from "../../sections/FreelancerPlatform";
 
 const Home = () => {
   return (
@@ -18,7 +19,7 @@ const Home = () => {
           <Banner />
         </Animation>
 
-        <Animation delay={0.2}>
+        <Animation delay={0.3}>
           <FeatureTask />
         </Animation>
 
@@ -30,9 +31,14 @@ const Home = () => {
           <AboutSection />
         </Animation>
 
-        <Animation delay={0.4}>
+        <Animation delay={0.3}>
+          <FreelancerPlatform/>
+        </Animation>
+
+        <Animation delay={0.3}>
           <Testimonial />
         </Animation>
+
       </>
     )
   );
