@@ -1,201 +1,15 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { Bounce, toast } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
-import Swal from "sweetalert2";
-
-const StyledWrapper = styled.div`
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 350px;
-    padding: 20px;
-    border-radius: 20px;
-    position: relative;
-    background-color: #ffffff;
-    color: #333333;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  }
-
-  .title {
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -1px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    color: #ff6f00;
-  }
-
-  .title::before {
-    width: 18px;
-    height: 18px;
-  }
-
-  .title::after {
-    width: 18px;
-    height: 18px;
-    animation: pulse 1s linear infinite;
-  }
-
-  .title::before,
-  .title::after {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    left: 0px;
-    background-color: #ff6f00;
-  }
-
-  .message,
-  .signin {
-    font-size: 14.5px;
-    color: #666666;
-  }
-
-  .signin {
-    text-align: center;
-  }
-
-  .signin a:hover {
-    text-decoration: underline #ff6f00;
-  }
-
-  .signin a {
-    color: #ff6f00;
-  }
-
-  .flex {
-    display: flex;
-    width: 100%;
-    gap: 6px;
-  }
-
-  .form label {
-    position: relative;
-  }
-
-  .form label .input {
-    background-color: #ffffff;
-    color: #333333;
-    width: 100%;
-    padding: 20px 05px 05px 10px;
-    outline: 0;
-    border: 1px solid #dddddd;
-    border-radius: 10px;
-  }
-
-  .form label .input + span {
-    color: #999999;
-    position: absolute;
-    left: 10px;
-    top: 0px;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-  }
-
-  .form label .input:placeholder-shown + span {
-    top: 12.5px;
-    font-size: 0.9em;
-  }
-
-  .form label .input:focus + span,
-  .form label .input:valid + span {
-    color: #ff6f00;
-    top: 0px;
-    font-size: 0.7em;
-    font-weight: 600;
-  }
-
-  .input {
-    font-size: medium;
-  }
-
-  .submit {
-    border: none;
-    outline: none;
-    padding: 10px;
-    border-radius: 10px;
-    color: #ffffff;
-    font-size: 16px;
-    transform: 0.3s ease;
-    background-color: #ff6f00;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-
-  .submit:hover {
-    background-color: #e66500;
-  }
-
-  .google-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border: 1px solid #dddddd;
-    background-color: #ffffff;
-    color: #333333;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .google-btn:hover {
-    background-color: #f5f5f5;
-    border-color: #cccccc;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    margin: 15px 0;
-    color: #999999;
-    font-size: 14px;
-  }
-
-  .divider::before,
-  .divider::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background-color: #dddddd;
-    margin: 0 10px;
-  }
-
-  @keyframes pulse {
-    from {
-      transform: scale(0.9);
-      opacity: 1;
-    }
-
-    to {
-      transform: scale(1.8);
-      opacity: 0;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .form {
-      width: 90%;
-      margin: 0 auto;
-    }
-  }
-`;
+import { motion } from "framer-motion";
 
 const Register = () => {
   const { createUser, setUser, signInWithGoogle, updateUserProfile } =
     useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -211,8 +25,6 @@ const Register = () => {
       photo,
       createdAt: new Date(),
     };
-  
-    
 
     const RegExpLower = /[a-z]/;
     const RegExpUpper = /[A-Z]/;
@@ -234,6 +46,21 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
+        if (result.user) {
+          toast.success("🦄 Registration successful", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+
+          navigate(`${location?.state ?? "/"}`);
+        }
 
         fetch("https://freelanzia-server.vercel.app/users", {
           method: "POST",
@@ -242,28 +69,14 @@ const Register = () => {
           },
           body: JSON.stringify(userData),
         })
-          .then((res) => res.json()) // ✅ Parse JSON
+          .then((res) => res.json())
           .then((data) => {
-            const user = data.user
-            setUser(user)
-            
+            const user = data.user;
+            setUser(user);
           });
 
         updateUserProfile({ displayName: name, photoURL: photo }).then(() => {
           setUser({ ...user, displayName: name, photoURL: photo });
-          if (result.user) {
-            toast.success("🦄 Registration successful", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              transition: Bounce,
-            });
-          }
         });
       })
       .catch((error) => {
@@ -286,27 +99,28 @@ const Register = () => {
           transition: Bounce,
         });
 
-        const user = result.user;
-        const {displayName , email} = user
-        const userProfile = {
-          displayName , email
-        }
+        navigate(`${location?.state ?? "/"}`);
 
-         fetch("https://freelanzia-server.vercel.app/users", {
+        const user = result.user;
+        const { displayName, email } = user;
+        const userProfile = {
+          displayName,
+          email,
+        };
+
+        fetch("https://freelanzia-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
           },
           body: JSON.stringify(userProfile),
         })
-          .then((res) => res.json()) // ✅ Parse JSON
+          .then((res) => res.json())
           .then((data) => {
-           const user = data.user
-           setUser(user)
-            
+            const user = data.user;
+            setUser(user);
           });
-        
-        
+
         setUser(user);
       })
       .catch((error) => {
@@ -326,81 +140,123 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <StyledWrapper>
-        <form onSubmit={handleRegister} className="form">
-          <p className="title">Register</p>
-          <p className="message">Signup now and get full access to our app.</p>
+    <div className="min-h-screen bg-primary flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
+          <div className="p-1 bg-gradient-to-r from-orange-500 to-amber-500"></div>
 
-          <button
-            type="button"
-            className="google-btn"
-            onClick={handleGoogleSignIn}
-          >
-            <FcGoogle size={20} />
-            <span>Sign up with Google</span>
-          </button>
+          <div className="px-8 py-8">
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <h2 className="text-3xl font-bold text-gray-800 dark:text-orange-50">
+                  Create Account
+                </h2>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full"></div>
+              </div>
+            </div>
 
-          <div className="divider">or</div>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="button"
+              onClick={handleGoogleSignIn}
+              className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium transition-all hover:bg-gray-50 dark:hover:bg-gray-600 shadow-sm"
+            >
+              <FcGoogle className="text-xl" />
+              <span>Continue with Google</span>
+            </motion.button>
 
-          <div className="flex">
-            <label>
-              <input
-                className="input"
-                name="name"
-                type="text"
-                placeholder=""
-                required
-              />
-              <span>Name</span>
-            </label>
+            <div className="flex items-center my-6">
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-600"></div>
+              <span className="px-4 text-gray-500 dark:text-gray-400 text-sm">
+                OR
+              </span>
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-600"></div>
+            </div>
+
+            <form onSubmit={handleRegister} className="space-y-5">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative">
+                  <input
+                    name="name"
+                    type="text"
+                    required
+                    className="peer w-full px-4 py-3 pt-6 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                    placeholder=" "
+                  />
+                  <label className="absolute left-4 top-3 text-gray-500 dark:text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:top-3 peer-focus:text-sm peer-focus:text-orange-500">
+                    First Name
+                  </label>
+                </div>
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="photo"
+                    required
+                    className="peer w-full px-4 py-3 pt-6 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                    placeholder=" "
+                  />
+                  <label className="absolute left-4 top-3 text-gray-500 dark:text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:top-3 peer-focus:text-sm peer-focus:text-orange-500">
+                    Photo URL
+                  </label>
+                </div>
+              </div>
+
+              <div className="relative">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  className="peer w-full px-4 py-3 pt-6 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                  placeholder=" "
+                />
+                <label className="absolute left-4 top-3 text-gray-500 dark:text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:top-3 peer-focus:text-sm peer-focus:text-orange-500">
+                  Email Address
+                </label>
+              </div>
+
+              <div className="relative">
+                <input
+                  type="password"
+                  name="password"
+                  required
+                  className="peer w-full px-4 py-3 pt-6 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                  placeholder=" "
+                />
+                <label className="absolute left-4 top-3 text-gray-500 dark:text-gray-400 text-sm transition-all pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:top-3 peer-focus:text-sm peer-focus:text-orange-500">
+                  Password
+                </label>
+              </div>
+
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold rounded-lg shadow-md transition-all duration-300 transform hover:shadow-lg"
+              >
+                Create Account
+              </motion.button>
+            </form>
+
+            <div className="mt-6 text-center">
+              <p className="text-gray-600 dark:text-gray-300">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="text-orange-500 dark:text-orange-400 font-medium hover:underline hover:text-orange-600 dark:hover:text-orange-300 transition-colors"
+                >
+                  Sign in
+                </Link>
+              </p>
+            </div>
           </div>
-
-          <label>
-            <input
-              className="input"
-              type="email"
-              name="email"
-              placeholder=""
-              required
-            />
-            <span>Email</span>
-          </label>
-
-          <label>
-            <input
-              className="input"
-              type="password"
-              name="password"
-              placeholder=""
-              required
-            />
-            <span>Password</span>
-          </label>
-
-          <label>
-            <input
-              className="input"
-              type="text"
-              name="photo"
-              placeholder=""
-              required
-            />
-            <span>Photo URL</span>
-          </label>
-
-          <button type="submit" className="submit">
-            Submit
-          </button>
-
-          <p className="signin">
-            Already have an account?{" "}
-            <Link to="/login" className="text-orange-600 hover:underline">
-              Log in
-            </Link>
-          </p>
-        </form>
-      </StyledWrapper>
+        </div>
+      </motion.div>
     </div>
   );
 };

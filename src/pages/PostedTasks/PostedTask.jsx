@@ -67,7 +67,7 @@ const PostedTask = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/tasks/${taskId}`, {
+      const res = await fetch(`https://freelanzia-server.vercel.app/tasks/${taskId}`, {
         method: "DELETE",
       });
 
@@ -92,14 +92,6 @@ const PostedTask = () => {
     }
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center h-64">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
-  //     </div>
-  //   );
-  // }
-
   if (tasks.length === 0) {
     return (
       <div className="bg-primary rounded-lg mt-20 max-w-7xl mx-auto shadow-md p-8 text-center">
@@ -108,7 +100,7 @@ const PostedTask = () => {
         </h2>
         <p className="text-secondary mb-6">No tasks posted yet.</p>
         <Link
-          to="/post-task"
+          to="/add-tasks"
           className="btn-orange px-6 py-2 rounded-lg inline-block"
         >
           Post Your First Task

@@ -16,7 +16,7 @@ const FeatureTask = () => {
       <div className="max-w-7xl  mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#333333] mb-3">
+          <h2 className="text-2xl text-accent sm:text-3xl lg:text-4xl font-bold  mb-3">
             Popular Services
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base">

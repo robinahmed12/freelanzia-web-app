@@ -43,7 +43,7 @@ const slides = [
       "Deliver Excellence",
     ],
     subtitle: "We match you with the right freelancer.",
-     buttonText: "Get Payment",
+    buttonText: "Get Payment",
   },
 
   {
@@ -55,7 +55,7 @@ const slides = [
       "All Skill Levels",
     ],
     subtitle: "Hire, manage, and pay freelancers with ease.",
-     buttonText: "Start Earning",
+    buttonText: "Start Earning",
   },
 ];
 
@@ -71,7 +71,7 @@ const Banner = () => {
         interval={5000}
         swappable
         emulateTouch
-        renderIndicator={(onClickHandler, isSelected, index, label) => (
+        renderIndicator={(onClickHandler, isSelected, index) => (
           <button
             type="button"
             onClick={onClickHandler}
@@ -116,7 +116,7 @@ const Banner = () => {
       </Carousel>
 
       {/* Custom shape divider */}
-      <div className="absolute -bottom-1 left-0 right-0 z-30 h-16 md:h-24 bg-white w-full">
+      <div className="absolute -bottom-1 left-0 right-0 z-30  h-16 md:h-24 bg-white w-full">
         <svg
           className="absolute top-0 w-full h-full text-gray-900"
           viewBox="0 0 1000 100"
