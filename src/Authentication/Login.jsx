@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast, Bounce } from "react-toastify";
@@ -46,6 +46,7 @@ const Login = () => {
       });
   };
 
+
   const handleGoogleLogin = () => {
     signInWithGoogle()
       .then((result) => {
@@ -78,6 +79,10 @@ const Login = () => {
         });
       });
   };
+
+    useEffect(() => {
+      document.title = "Login";
+    })
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-primary p-4 transition-colors duration-300">

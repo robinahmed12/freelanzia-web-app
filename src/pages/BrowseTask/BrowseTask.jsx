@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLoaderData } from "react-router";
 import BrowseCard from "./BrowseCard";
 
 const BrowseTask = () => {
   const data = useLoaderData();
 
-  // Handle loading/error states
-  if (!data) {
-    return <div>Loading tasks...</div>;
-  }
-
   // Ensure data is always treated as an array
   const tasks = Array.isArray(data) ? data : [];
+  useEffect(()=>{
+    document.title ="Browse-tasks"
+  })
 
   return (
     <>

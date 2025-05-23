@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../context/AuthContext";
@@ -58,18 +58,8 @@ const AddTask = () => {
       },
       body: JSON.stringify(taskData),
     })
-      .then(async (response) => {
-        if (!response.ok) {
-          // Try to get error message from response
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(
-            errorData.error ||
-              errorData.message ||
-              `HTTP error! status: ${response.status}`
-          );
-        }
-        return response.json();
-      })
+      .then((res) => res.json())
+
       .then((data) => {
         if (data.success && data.insertedId) {
           Swal.fire({
@@ -101,6 +91,9 @@ const AddTask = () => {
         });
       });
   };
+  useEffect(() => {
+    document.title = "Add-tasks";
+  });
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-orange-50/20 to-gray-100/50 dark:from-gray-900 dark:to-gray-900">

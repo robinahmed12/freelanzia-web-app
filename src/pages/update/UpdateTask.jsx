@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
@@ -48,44 +48,42 @@ const UpdateTask = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch(
-        `https://freelanzia-server.vercel.app/update/${data._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formData,
-            userEmail: user?.email,
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (result.modifiedCount > 0) {
-        Swal.fire("Success!", "Task updated successfully", "success");
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
-
-        // Clear form only if update was successful
-        setFormData({
-          title: "",
-          category: "Web Development",
-          description: "",
-          deadline: null,
-          budget: "",
-        });
-      } else {
-        Swal.fire("Notice", "No changes were made", "info");
+    const response = await fetch(
+      `https://freelanzia-server.vercel.app/update/${data._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          userEmail: user?.email,
+        }),
       }
-    } catch (error) {
-      console.error("Error updating task:", error);
-      Swal.fire("Error", "Something went wrong", "error");
+    );
+
+    const result = await response.json();
+
+    if (result.modifiedCount > 0) {
+      Swal.fire("Success!", "Task updated successfully", "success");
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+
+      // Clear form only if update was successful
+      setFormData({
+        title: "",
+        category: "Web Development",
+        description: "",
+        deadline: null,
+        budget: "",
+      });
+    } else {
+      Swal.fire("Notice", "No changes were made", "info");
     }
   };
+  useEffect(() => {
+    document.title = "Update-task";
+  });
 
   return (
     <>
@@ -96,7 +94,6 @@ const UpdateTask = () => {
             <h2 className="text-4xl font-bold text-accent sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-300">
               Update Your Task
             </h2>
-           
           </div>
 
           {/* Card with Glass Morphism Effect */}

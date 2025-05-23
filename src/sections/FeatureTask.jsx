@@ -10,32 +10,36 @@ const FeatureTask = () => {
       const url = `https://freelanzia-server.vercel.app/featured-tasks?t=${Date.now()}`;
       const response = await fetch(url);
 
-      if (response.ok) {
-        const result = await response.json();
-
-        if (result.success) {
-          const now = new Date();
-          const fifteenDaysFromNow = new Date();
-          fifteenDaysFromNow.setDate(now.getDate() + 15);
-
-          const validTasks = result.data
-            .map((task) => ({
-              ...task,
-              deadline: task.deadline ? new Date(task.deadline) : null,
-              budget: task.budget || "Not specified",
-              category: task.category || "General",
-            }))
-            .filter(
-              (task) =>
-                task.title &&
-                task.deadline &&
-                task.deadline >= fifteenDaysFromNow
-            )
-            .slice(0, 8); // Only take the first 4 tasks
-
-          setTasks(validTasks);
-        }
+      if (!response.ok) {
+        setIsLoading(false);
+        return;
       }
+
+      const result = await response.json();
+
+      if (!result?.success) {
+        setIsLoading(false);
+        return;
+      }
+
+      const now = new Date();
+      const fifteenDaysFromNow = new Date();
+      fifteenDaysFromNow.setDate(now.getDate() + 15);
+
+      const validTasks = result.data
+        .map((task) => ({
+          ...task,
+          deadline: task.deadline ? new Date(task.deadline) : null,
+          budget: task.budget || "Not specified",
+          category: task.category || "General",
+        }))
+        .filter(
+          (task) =>
+            task.title && task.deadline && task.deadline >= fifteenDaysFromNow
+        )
+        .slice(0, 8);
+
+      setTasks(validTasks);
       setIsLoading(false);
     };
 

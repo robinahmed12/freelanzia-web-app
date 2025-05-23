@@ -5,20 +5,12 @@ const BidsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://freelanzia-server.vercel.app/bids"
-        );
-        if (!response.ok) throw new Error("Failed to fetch bids");
-        const result = await response.json();
-        setData(result);
-      } catch (err) {
-        console.log(err.message);
-      } finally {
-        console.log();
-      }
+      const response = await fetch("https://freelanzia-server.vercel.app/bids");
+      const result = await response.json();
+      setData(result);
     };
 
+    document.title = "Bids";
     fetchData();
   }, []);
 

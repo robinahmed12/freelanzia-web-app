@@ -40,7 +40,6 @@ const TaskDetails = () => {
       message,
     };
 
-    //
     fetch("https://freelanzia-server.vercel.app/bids", {
       method: "POST",
       headers: {
@@ -49,8 +48,7 @@ const TaskDetails = () => {
       body: JSON.stringify(bidData),
     })
       .then((res) => res.json())
-      .then((data) => console.log("Bid submitted:", data))
-      .catch((err) => console.error("Error submitting bid:", err));
+      .then((data) => console.log("Bid submitted:", data));
   };
 
   useEffect(() => {
@@ -60,9 +58,12 @@ const TaskDetails = () => {
       .then((res) => res.json())
       .then((bids) => {
         setBidsCount(bids.length);
-      })
-      .catch((err) => console.error("Error fetching user's bid count:", err));
+      });
   }, [_id, user?.email]);
+
+  useEffect(() => {
+    document.title = "Task-details";
+  });
 
   return (
     <div className="min-h-screen bg-primary py-12 px-4 sm:px-6 lg:px-8">

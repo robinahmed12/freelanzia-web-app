@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast, Bounce } from "react-toastify";
@@ -83,6 +83,9 @@ const Register = () => {
         console.log(error);
       });
   };
+    useEffect(() => {
+      document.title = "Register";
+    })
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()

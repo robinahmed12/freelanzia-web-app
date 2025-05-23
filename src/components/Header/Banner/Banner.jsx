@@ -107,9 +107,9 @@ const Banner = () => {
                     <span className="relative z-10">{slide.buttonText}</span>
                     <span className="absolute inset-0 bg-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></span>
                   </button>
-                  <button className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-300 hover:shadow-lg hover:shadow-white/10 group relative overflow-hidden">
+                  <button className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-neutral-950 hover:bg-opacity-10 transition-all duration-300 hover:shadow-lg hover:shadow-white/10 group relative overflow-hidden">
                     <span className="relative z-10">Learn More</span>
-                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                    <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10  transition-opacity duration-300"></span>
                   </button>
                 </div>
               </div>

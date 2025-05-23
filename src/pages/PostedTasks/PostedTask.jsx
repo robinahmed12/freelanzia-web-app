@@ -24,34 +24,19 @@ const PostedTask = () => {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
-  useEffect(() => {
-    if (!email) {
-      console.warn("No userEmail provided");
-      // setLoading(false);
-      return;
-    }
+  document.title = "Posted-tasks";
 
-    fetch(
-      `https://freelanzia-server.vercel.app/tasks?email=${encodeURIComponent(
-        email
-      )}`
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch tasks");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Fetched tasks:", data);
-        setTasks(data);
-      })
-      .catch((e) => {
-        console.error("Fetch error:", e);
-        setTasks([]);
-      });
-    // .finally(() => setLoading(false));
-  }, [email]);
+  fetch(
+    `https://freelanzia-server.vercel.app/tasks?email=${encodeURIComponent(
+      email
+    )}`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Fetched tasks:", data);
+      setTasks(data);
+    })
+    .catch(() => setTasks([]));
 
   const handleDelete = async (taskId) => {
     const result = await Swal.fire({
@@ -66,33 +51,31 @@ const PostedTask = () => {
 
     if (!result.isConfirmed) return;
 
-    try {
-      const res = await fetch(
-        `https://freelanzia-server.vercel.app/tasks/${taskId}`,
-        {
-          method: "DELETE",
-        }
-      );
+    const res = await fetch(
+      `https://freelanzia-server.vercel.app/tasks/${taskId}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-      if (!res.ok) throw new Error("Failed to delete task");
-
-      await Swal.fire({
-        title: "Deleted!",
-        text: "Your task has been deleted.",
-        icon: "success",
-        confirmButtonColor: "#FF6F00",
-      });
-
-      setTasks((prev) => prev.filter((task) => task._id !== taskId));
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
+    if (!res.ok) {
+      console.error("Delete failed");
+      return Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Delete failed",
         confirmButtonColor: "#FF6F00",
       });
     }
+
+    await Swal.fire({
+      title: "Deleted!",
+      text: "Your task has been deleted.",
+      icon: "success",
+      confirmButtonColor: "#FF6F00",
+    });
+
+    setTasks((prev) => prev.filter((task) => task._id !== taskId));
   };
 
   if (tasks.length === 0) {
