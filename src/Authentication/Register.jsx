@@ -83,13 +83,14 @@ const Register = () => {
         console.log(error);
       });
   };
-    useEffect(() => {
-      document.title = "Register";
-    })
+  useEffect(() => {
+    document.title = "Register";
+  });
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
+        setUser(result.user);
         toast.success("Google sign-in successful", {
           position: "top-center",
           autoClose: 5000,
@@ -102,32 +103,23 @@ const Register = () => {
           transition: Bounce,
         });
 
-        navigate(`${location?.state ?? "/"}`);
+        navigate(location?.state || "/");
 
-        const user = result.user;
-        const { displayName, email } = user;
-        const userProfile = {
-          displayName,
-          email,
-        };
+        const { displayName, email, uid } = result.user;
+        const userProfile = { displayName, email, uid };
 
-        fetch("https://freelanzia-server.vercel.app/users", {
+        return fetch("https://freelanzia-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
           },
           body: JSON.stringify(userProfile),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            const user = data.user;
-            setUser(user);
-          });
-
-        setUser(user);
+        });
       })
+      .then((response) => response.json())
+
       .catch((error) => {
-        console.log(error);
+        console.error("Google Sign-In Error:", error);
         toast.error(error.message, {
           position: "top-center",
           autoClose: 5000,

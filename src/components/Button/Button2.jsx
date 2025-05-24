@@ -62,11 +62,14 @@ const StyledWrapper = styled.div`
   }
 `;
 
+
 const Button2 = () => {
-  const { logOutUser } = useContext(AuthContext);
+  const { logOutUser , setUser  } = useContext(AuthContext);
   const handleLogOut = () => {
+    
     logOutUser()
       .then(() => {
+        setUser(null)
         toast.success("🦄 Log out successfully", {
           position: "top-center",
           autoClose: 5000,

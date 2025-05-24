@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <header className="mt-5 dark:bg-gray-900">
-      <div className="container mx-auto px-4 py-3">
+      <div className="container mx-auto px-0 py-3">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <NavLink
@@ -144,11 +144,11 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center gap-4 mr-8">
+          <div className="lg:hidden flex gap-8 items-center ">
             <DarkModeBtn className="lg:hidden" />
             <button
               onClick={toggleMenu}
-              className="p-2 rounded-md text-gray-800 dark:text-orange-200 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="p-2 mr-6 rounded-md text-gray-800 dark:text-orange-200 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
               aria-label="Toggle menu"
             >
               <svg
