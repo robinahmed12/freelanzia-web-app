@@ -7,6 +7,7 @@ import Testimonial from "../../sections/Testimonial";
 import Animation from "../../components/Animation";
 import AboutSection from "../About/AboutSection";
 import FreelancerPlatform from "../../sections/FreelancerPlatform";
+import TaskSpotlight from "../../sections/TaskSpotlight";
 
 const Home = () => {
   return (
@@ -31,9 +32,15 @@ const Home = () => {
           <AboutSection />
         </Animation>
 
+         <Animation delay={0.3}>
+          <TaskSpotlight/>
+        </Animation>
+
         <Animation delay={0.3}>
           <FreelancerPlatform/>
         </Animation>
+
+        
 
         <Animation delay={0.3}>
           <Testimonial />

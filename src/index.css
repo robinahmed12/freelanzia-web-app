@@ -29,7 +29,7 @@
   }
 
   .bg-accent {
-    @apply bg-orange-100 dark:bg-orange-900/30;
+    @apply bg-orange-100 dark:bg-orange-900/50;
   }
 
   /* Borders */
