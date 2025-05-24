@@ -7,9 +7,9 @@ const BrowseTask = () => {
 
   // Ensure data is always treated as an array
   const tasks = Array.isArray(data) ? data : [];
-  useEffect(()=>{
-    document.title ="Browse-tasks"
-  })
+  useEffect(() => {
+    document.title = "Browse-tasks";
+  });
 
   return (
     <>

@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutSection = () => {
   return (
-    <section className="bg-primary py-16 md:py-24">
+    <section className="bg-primary mt-20 py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* Left Image (Hidden on mobile) */}

@@ -47,7 +47,7 @@ const FeatureTask = () => {
   }, []);
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 px-4 sm:px-6 lg:px-8">
+    <section className="py-12 mt-20 md:py-16 lg:py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-orange-600 dark:text-orange-400 uppercase rounded-full bg-orange-100 dark:bg-orange-900/30 mb-4">

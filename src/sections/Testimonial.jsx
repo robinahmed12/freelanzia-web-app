@@ -88,7 +88,7 @@ export default function TestimonialSlider() {
   });
 
   return (
-    <div className="w-full bg-primary px-4 py-16 md:px-6 lg:px-8">
+    <div className="w-full mt-20 bg-primary px-4 py-16 md:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
           <span className="text-accent text-sm font-semibold uppercase tracking-wider">

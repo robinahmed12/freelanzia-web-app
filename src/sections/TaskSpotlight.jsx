@@ -67,7 +67,7 @@ const TaskSpotlight = () => {
   ];
 
   return (
-    <section className="bg-secondary mt-11 py-12 px-4 sm:px-6 lg:px-8">
+    <section className="bg-secondary mt-20 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-primary sm:text-4xl">
@@ -109,7 +109,7 @@ const TaskSpotlight = () => {
                   {task.skills.map((skill, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center px-3 py-1 rounded-full bg-accent text-xs font-medium bg text-accent-foreground"
+                      className="inline-flex items-center px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/70 text-xs font-medium bg text-amber-500"
                     >
                       {skill}
                     </span>
