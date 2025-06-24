@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <header className="mt-5 dark:bg-gray-900">
       <div className="container mx-auto px-0 py-3">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-15">
           {/* Logo */}
           <NavLink
             to="/"
