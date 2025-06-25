@@ -109,6 +109,89 @@ Theme Toggle:
 Switch between dark and light modes
 
 
+<br>
+
+🚀 Local Development Setup
+Prerequisites
+Node.js (v18 or later recommended)
+<br>
+
+npm (comes with Node.js)
+
+<br>
+
+or Yarn
+
+Git (for cloning the repository)
+<br>
+
+Quick Start Guide
+<br>
+
+Clone the repository
+
+<br>
+
+bash
+<br>
+[git clone https://github.com/your-username/repo-name.git](https://github.com/robinahmed12/freelanzia-client-side.git)
+<br>
+
+cd repo-name
+
+<br>
+Install dependencies
+
+bash
+npm install
+
+<br>
+# or
+yarn install
+<br>
+
+Start the development server
+
+bash
+npm run dev
+# or
+yarn dev
+<br>
+
+Open in your browser
+<br>
+
+The app will typically run on:
+
+
+http://localhost:5173
+(Check your terminal for the exact URL)
+
+Alternative Commands
+<br>
+
+Production build:
+
+bash
+<br>
+npm run build
+<br>
+
+Preview production build:
+
+bash
+<br>
+
+npm run preview
+
+
+
+
+<br>
+
+
+
+
 Contact
 For questions or feedback, please contact:
 
